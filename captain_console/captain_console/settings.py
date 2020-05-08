@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'about_us.apps.AboutUsConfig',
+    #'accessory.apps.AccessoriesConfig',
+    #'manufacturer.apps.ManufacturerConfig',
+    #'sale.apps.SaleConfig',
+    'user.apps.UserConfig',
+    'product.apps.ProductConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +83,12 @@ WSGI_APPLICATION = 'captain_console.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'xboylcli',
+        'USER': 'xboylcli',
+        'PASSWORD': 'xtC1OZAsASnPolmhfm2rf1KDh-53EZ_Q',
+        'HOST': 'balarama.db.elephantsql.com',
+        'PORT': '5432'
     }
 }
 
@@ -119,3 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+LOGIN_URL = 'user/login'
+LOGIN_REDIRECT_URL = '/user/profile'

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="red">All products</h1>
+    <h3>Sort by: </h3>
+    <div class="sorter">
+        <div class="sort-attributes">
+            <div class="sort-button"><a href="/products/name">Name</a></div>
+            <div class="sort-button"><a href="/products/price">Price</a></div>
+            <div class="sort-button"><a href="/products/release_year">Release year</a></div>
+        </div>
+    </div>
+    <div class="input-group">
+        <input type="search" class="form-control" id="search-box" placeholder="Enter your search here.." />
+        <div class="input-group-btn">
+            <button type="button" id="search-btn" class="btn btn-default">Search</button>
+            <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
+        </div>
+    </div>
+    <div class="products">
+        {% for product in products %}
+            {% if product.type_id == 2 %}
+                {% include 'console/single_console.html' with console=product %}
+            {% else %}
+                {% include 'game/single_game.html' with game=product %}
+            {% endif %}
+
+        {% endfor %}
+    </div>
+{% endblock %}
