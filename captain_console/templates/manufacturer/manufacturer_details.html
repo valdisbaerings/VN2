@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for manu in manufacturer %}
+        <h1>All products from {{ manu.name }}</h1>
+    {% endfor %}
+    <h3>Consoles</h3>
+    <div class="consoles">
+    {% for console in consoles %}
+        {% include 'console/single_console.html' with product=console %}
+    {% endfor %}
+    </div>
+    <h3>Games</h3>
+    <div class="games">
+        {% for game in games %}
+            {% include 'game/single_game.html' with product=game %}
+        {% endfor %}
+    </div>
+{% endblock %}

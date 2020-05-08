@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="red">Games</h1>
+    <div class="games">
+        {% for product in products %}
+            {% if product.type_id == 1 %}
+                {% include 'game/single_game.html' with product=product %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

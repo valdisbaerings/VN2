@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{ games.name }}</h1>
+    <p>{{ games.description }}</p>
+    <p>{{ games.price }}$</p>
+    <p>Manufacturer: {{ games.manufacturer.name }}</p>
+    {% for product_image in games.productimage_set.all %}
+        <img src="{{ product_image.image }}" class="product-img" />
+    {% endfor %}
+{% endblock %}

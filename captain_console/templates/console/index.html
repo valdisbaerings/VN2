@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="red">Consoles</h1>
+    <div class="input-group">
+        <input type="search" class="form-control" id="search-box" placeholder="Enter your search here.."/>
+        <div class="input-group-btn">
+            <button type="button" id="search-btn" class="btn btn-default">Search</button>
+            <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
+        </div>
+    </div>
+
+    <div class="consoles">
+        {% for product in products %}
+            {% if product.type_id == 2 %}
+                {% include 'console/single_console.html' with product=product %}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}
+
