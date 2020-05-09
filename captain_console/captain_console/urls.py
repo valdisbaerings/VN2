@@ -22,7 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('product.urls')),
     path('user/', include('user.urls')),
-    path('cart/', include('cart.urls'))
+    path('cart/', include('cart.urls')),
+    path('manufacturers/', include('manufacturer.urls')),
+    path('sales/', include('sale.urls')),
+    path('about/', include('about_us.urls')),
 ]
 
 # GAMLA
