@@ -30,7 +30,7 @@ class Type(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=999, blank=True)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=100, decimal_places=2, default=0)
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     developer = models.CharField(max_length=255, blank=True)

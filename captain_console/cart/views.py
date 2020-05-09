@@ -17,7 +17,7 @@ def add_to_cart(request):
         p = json.loads(request.body.decode('utf-8'))
         pid = p["product_id"]
         product = Product.objects.get(id=pid)
-        cart = Cart.objects.get(product=product, user=request.user.id)
+        cart = Cart.objects.filter(product=product, user_id=request.user.id).first()
         if cart is not None:
             cart.quantity += 1
             cart.total += product.price
@@ -26,7 +26,7 @@ def add_to_cart(request):
             cart = Cart(**obj)
 
         cart.save()
-        return JsonResponse({'cart':Cart.object.filter(user_id=request.user.id)})
+        return JsonResponse({'numberOfItems':Cart.objects.filter(user_id=request.user.id).count()})
     return None
 
 def del_to_cart(request):

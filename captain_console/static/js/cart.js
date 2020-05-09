@@ -5,7 +5,7 @@ const addToCart = (id) => {
         data: JSON.stringify({product_id: id}),
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
-            console.log(resp);
+            $("#items_in_cart").html(resp.numberOfItems)
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
