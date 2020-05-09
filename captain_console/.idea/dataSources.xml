@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="CaptainConsoleDB" uuid="78298b5c-a267-477b-99fa-265853f34222">
+    <data-source source="LOCAL" name="Captain Console db" uuid="5a3ad21e-a234-4ca0-ae1e-d83443c75a0d">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

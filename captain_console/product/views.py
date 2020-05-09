@@ -21,6 +21,11 @@ def product_index(request):
         return JsonResponse({'data': products})
     return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name')})
 
+
+def product_index_type(request, type):
+    return render(request, 'product/index.html', context={'products': Product.objects.filter(type_id=type).order_by('name')})
+
+
 def search_index(request):
     if request.method == 'POST':
         print(request)
@@ -58,7 +63,7 @@ def get_game_by_id(request, id):
     })
 
 
-def create_product(request):
+def create_console(request):
     if request.method == 'POST':
         form = ConsoleCreateForm(data=request.POST)
         if form.is_valid():
@@ -73,13 +78,13 @@ def create_product(request):
         })
 
 
-def delete_product(request, id):
+def delete_console(request, id):
     console = get_object_or_404(Product, pk=id)
     console.delete()
     return redirect('console-index')
 
 
-def update_product(request, id):
+def update_console(request, id):
     instance = get_object_or_404(Product, pk=id)
     if request.method == 'POST':
         form = ConsoleUpdateForm(data=request.POST, instance=instance)

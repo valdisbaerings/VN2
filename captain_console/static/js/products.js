@@ -30,3 +30,18 @@ $(document).ready(function () {
     });
 
 });
+
+const addToCart = (id) => {
+    $.ajax({
+        url: '/cart/addToCart',
+        type: 'POST',
+        json: {product_id: id},
+        success: function (resp) {
+            console.log(resp);
+        },
+        error: function (xhr, status, error) {
+            // TODO: Show toastr
+            console.error(error)
+        }
+    });
+}

@@ -23,16 +23,30 @@
                 <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
 
             </a>
+
+
+
         </div>
     </div>
-    <div class="products">
-        {% for product in products %}
-            {% if product.type_id == 2 %}
-                {% include 'console/single_console.html' with console=product %}
-            {% else %}
-                {% include 'game/single_game.html' with game=product %}
-            {% endif %}
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+        <div class="row">
+            {% for product in products %}
+                    <div class="col-md-4 mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-img-actions"> <img src={{ product.productimage_set.first.image }} class="card-img img-fluid" width="96" height="350" alt=""> </div>
+                            </div>
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2"> <a href="games/{{ product.id }}" class="text-default mb-2" data-abc="true">{{ product.name }}</a> </h6>
 
-        {% endfor %}
-    </div>
+                                </div>
+                                <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                                <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+     </div>
 {% endblock %}
