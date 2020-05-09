@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Profile</h1>
-    <form class="form form-horizontal" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-primary" value="Update"/>
-    </form>
+
+    <img src="{{ user.profile.profile_image }}" class="team-img"/>
+    <a href="{% url 'profile_picture'  %}" class="block btn btn-primary">Edit Profile Picture</a>
+
+
+    <p>Name: </p>
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email:</p>
+    <p>{{ user.email }}</p>
 {% endblock %}

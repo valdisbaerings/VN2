@@ -8,10 +8,9 @@ from user.models import Profile
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(data=request.POST)
-        print(form.errors)
-        if form.is_valid():
-            form.save()
+        user_form = CustomUserCreationForm(data=request.POST)
+        if user_form.is_valid():
+            user_form.save()
             return redirect('login')
 
     return render(request, 'user/register.html', {
@@ -30,5 +29,19 @@ def profile(request):
     return render(request, 'user/profile.html' , {
         'form': ProfileForm(instance=profile)
     })
+
+def profile_picture(request):
+    profile = Profile.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile')
+    return render(request, 'user/profile_picture.html' , {
+        'form': ProfileForm(instance=profile)
+    })
+
 
 

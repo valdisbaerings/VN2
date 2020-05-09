@@ -1,0 +1,9 @@
+<h1>Edit Profile Picture</h1>
+
+<img src="{{ user.profile.profile_image }}" class="team-img"/>
+
+<form class="form form-horizontal" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="btn btn-primary" value="Update"/>
+</form>
