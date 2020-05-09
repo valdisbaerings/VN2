@@ -5,15 +5,18 @@ from product.models import Product
 import json
 
 def view(request):
-    cart = Cart.objects.all()
-    context = {"cart": cart}
-    template = "cart/index.html"
+    context = {'items': []}
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user_id = request.user.id)
+        context["items"] = cart
+        total_price = sum(c.total for c in cart)
+        context["totalPrice"] = total_price
+        template = "cart/index.html"
     return render(request, template, context)
 
 
 def add_to_cart(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
-        print(request.body)
         p = json.loads(request.body.decode('utf-8'))
         pid = p["product_id"]
         product = Product.objects.get(id=pid)
@@ -29,9 +32,12 @@ def add_to_cart(request):
         return JsonResponse({'numberOfItems':Cart.objects.filter(user_id=request.user.id).count()})
     return None
 
-def del_to_cart(request):
-    Cart.object.get(id=321).delete()
-    return JsonResponse({'cart':Cart.object.filter(user=123)})
+def del_from_cart(request):
+    if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
+        c = json.loads(request.body.decode('utf-8'))
+        cid = c["cart_id"]
+        Cart.objects.get(id=cid).delete()
+    return JsonResponse({})
 
 def number_of_items(request):
     print(request.user.id)

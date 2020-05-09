@@ -10,22 +10,23 @@
             <th>Item</th>
             <th>Quantity</th>
             <th>Price</th>
+            <th>Delete</th>
+            
             </thead>
         <tfoot>
         <tr>
             <td></td>
-            <td>Total: {{ cart.total }}</td>
+            <td></td>
+            <td>Total: {{ totalPrice }}</td>
+            <td></td>
         </tr>
         </tfoot>
-
-
-
-                <tr><td>Hello</td><td>ME</td><td>Here</td></tr>
-                {% for item in cart.product.all %}
-                    <tr><td>{ item }</td><td>{ item.price }</td>/tr>
+                {% for item in items %}
+                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>{{ item.total }}</td><td><button onclick="deleteFromCart({{ item.id }})"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>
                 {% endfor %}
         </table>
 
+        <button>Buy</button>
 
     </div>
 
