@@ -3,6 +3,8 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.product_index, name="product-index"),
+    path('search_history', views.search_index, name="search-index"),
+    path('view_search_history', views.view_search_index, name="view_search_history"),
     path('consoles', views.console_index, name="console-index"),
     path('games', views.game_index, name="game-index"),
     path('consoles/<int:id>', views.get_console_by_id, name="console_details"),

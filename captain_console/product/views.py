@@ -21,14 +21,21 @@ def product_index(request):
         return JsonResponse({'data': products})
     return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name')})
 
-
-def search_history(request):
-    print("HAAA")
-    search="BLAA"
+def search_index(request):
     if request.method == 'POST':
-        search = SearchHistory(name=request.POST(search))
-        search.save()
-    return redirect('product-index')
+        print(request)
+        form = SearchHistory(name=request.POST['text'])
+        form.save()
+        return HttpResponse({'name': form})
+
+def view_search_index(request):
+    search=SearchHistory.objects.values('name')
+    return render(request, 'product/view_search_history.html', {
+        'searchhistory': search
+    })
+
+
+
 
 
 def game_index(request):

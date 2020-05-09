@@ -10,10 +10,19 @@
         </div>
     </div>
     <div class="input-group">
-        <input type="search" class="form-control" id="search-box" placeholder="Enter your search here.." />
+        {% csrf_token %}
+        {{ form }}
+        <input type="search" class="form-control" id="search-box" placeholder="Enter your search here.."/>
+        <form class="form form-horizontal" action="{% url 'search-index' %}" method="post">
+            <input type="hidden" class="form-control" id="search-box" placeholder="Enter your search here.."
+                   name="search" method="POST"/>
+        </form>
         <div class="input-group-btn">
-            <button type="button" id="search-btn" class="btn btn-default">Search</button>
-            <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
+            <button type="submit" id="search-btn" class="btn btn-default">Search</button>
+            <a href={% url "view_search_history" %}>
+                <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
+
+            </a>
         </div>
     </div>
     <div class="products">
