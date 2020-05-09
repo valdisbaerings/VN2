@@ -21,6 +21,11 @@ def product_index(request):
         return JsonResponse({'data': products})
     return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name')})
 
+
+def product_index_type(request, type):
+    return render(request, 'product/index.html', context={'products': Product.objects.filter(type_id=type).order_by('name')})
+
+
 def search_index(request):
     if request.method == 'POST':
         print(request)
