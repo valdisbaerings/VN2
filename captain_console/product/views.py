@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from product.forms.product_forms import ConsoleCreateForm, ConsoleUpdateForm
 from product.models import Product, ProductImage, SearchHistory
+from cart.models import Cart
 
 
 def product_index(request):

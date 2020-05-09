@@ -33,7 +33,9 @@
                 <li><a href="{% url 'cart-index' %}">Cart</a></li>
 
             </ul>
-
+            {% if user.is_authenticated %}
+                <div id="shoppingcart">Items in cart <span id="items_in_cart">{{ cart.numberOfItems }}</span></div>
+            {% endif %}
 
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
