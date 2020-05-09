@@ -1,22 +1,64 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3 class="red">Homepage</h3>
-    <div class="input-group">
-        <input type="search" class="form-control" id="search-box" placeholder="Enter your search here.."/>
-        <div class="input-group-btn">
-            <button type="button" id="search-btn" class="btn btn-default">Search</button>
-            <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
-        </div>
+
+    <h3>Most popular products</h3>
+    <div class="homepage-container">
+        {% for product in products %}
+            {% if product.id == 13 or product.id == 14 or product.id == 15 %}
+                <div class="card">
+                    <div class="card-body">
+
+                    </div>
+                    <div class="card-body bg-light text-center">
+                        <div class="mb-2">
+                            <h6 class="front-page-name">
+                                <a href="products/consoles/{{ product.id }}" class="text-default mb-2" data-abc="true">
+                                    <div class="card-img-actions">
+                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
+                                        width="96" height="350" alt="">
+                                    </div>
+                                    {{ product.name }}
+                                </a>
+                            </h6>
+                        </div>
+                        <h3 class="front-page-price">${{ product.price }}</h3>
+                        <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                class="fa fa-cart-plus mr-2"></i> Add to cart
+                        </button>
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
     </div>
+    <h3>New products</h3>
+    <div class="homepage-container">
+        {% for product in products %}
+            {% if product.id == 16 or product.id == 17 or product.id == 18 %}
+                <div class="card">
+                    <div class="card-body">
 
-    <div class="consoles">
-        {% for console in consoles %}
-            {% include 'console/single_console.html' with console=console %}
+                    </div>
+                    <div class="card-body bg-light text-center">
+                        <div class="mb-2">
+                            <h6 class="front-page-name">
+                                <a href="products/consoles/{{ product.id }}" class="text-default mb-2" data-abc="true">
+                                    <div class="card-img-actions">
+                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
+                                        width="96" height="350" alt="">
+                                    </div>
+                                    {{ product.name }}
+                                </a>
+                            </h6>
+                        </div>
+                        <h3 class="front-page-price">${{ product.price }}</h3>
+                        <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                class="fa fa-cart-plus mr-2"></i> Add to cart
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
-        {% for game in games %}
-            {% include 'game/single_game.html' with game=game %}
-        {% endfor %}
-
     </div>
 
 
