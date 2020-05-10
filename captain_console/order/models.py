@@ -3,26 +3,24 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 from product.models import Product
+from user.models import User
 
 
 class Order(models.Model):
-    pass
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # fullname
-    # streetname
-    # housenumber
-    # city
-    # country
-    # postalcode
-    # date
-    # total_price
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    fullname = models.CharField(max_length=255)
+    streetname = models.CharField(max_length=255)
+    housenumber = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    postalcode = models.CharField(max_length=255)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
+    total_price = models.DecimalField(max_digits=100, decimal_places=2, default=0)
+    completed = models.BooleanField(default=False)
 
-    #def __unicode__(self):
-     #   return "Order id: %s" %(self.id)
 
 class OrderItem(models.Model):
-    pass
-    #product
-    #price
-    #count
-    #order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    price = models.DecimalField(max_digits=100, decimal_places=2, default=0)
+    count = models.IntegerField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)

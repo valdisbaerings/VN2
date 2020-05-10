@@ -26,6 +26,7 @@ urlpatterns = [
     path('manufacturers/', include('manufacturer.urls')),
     path('sales/', include('sale.urls')),
     path('about/', include('about_us.urls')),
+    path('order/', include('order.urls')),
 ]
 
 # GAMLA

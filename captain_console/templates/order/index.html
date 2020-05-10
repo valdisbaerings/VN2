@@ -3,14 +3,33 @@
 {% block content %}
     <h3>Shopping cart</h3>
 
-    <p>MeME</p>
     <div class="col-sm-8 col-sm-offset-3">
-        {% extends 'cart/cart-table.html' %}
+        <table class="table">
+            <thead>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            
+            </thead>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total: {{ totalPrice }}</td>
+        </tr>
+        </tfoot>
+                {% for item in items %}
+                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>{{ item.total }}</td></tr>
+                {% endfor %}
+        </table>
+        <form id="order_form" method="post">
+            {{ form.as_p }}
+        </form>
 
 
 
-        <button type="button" class="btn bg-cart" ></i> Back</button>
-        <button type="button" class="btn bg-cart" ><i class="fa fa-cart-plus mr-2"></i> Process to payment</button>
+        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
+        <button type="submit" form="order_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Process to payment</button>
 
     </div>
 
