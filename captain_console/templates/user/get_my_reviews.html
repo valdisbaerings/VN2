@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Reviews</h3>
+
+    <div class="review-container">
+        {% for item in items %}
+
+            <div>
+                <img class="review-img" src="{{ item.product.productimage_set.first.image }}"/>
+            </div>
+            <div class="well product">
+                <p>{{ item.review }}</p>
+            </div>
+
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

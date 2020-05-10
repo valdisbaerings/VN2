@@ -5,6 +5,20 @@
     <p>{{ games.price }}$</p>
     <p>Manufacturer: {{ games.manufacturer.name }}</p>
     {% for product_image in games.productimage_set.all %}
-        <img src="{{ product_image.image }}" class="product-img" />
+        <img src="{{ product_image.image }}" class="product-img"/>
+    {% endfor %}
+    <h1>Reviews</h1>
+    {% for review in reviews %}
+        {% if review.product_id == games.id %}
+            {% for user in users %}
+                {% if user.id == review.user_id %}
+                    <h6>{{ user.username }}</h6>
+                {% endif %}
+            {% endfor %}
+            <div class="well">
+                <p>{{ review.review }}</p>
+            </div>
+
+        {% endif %}
     {% endfor %}
 {% endblock %}

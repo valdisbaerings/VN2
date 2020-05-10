@@ -7,7 +7,48 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from templates.user.forms.user_form import CustomUserCreationForm
 from templates.user.forms.profile_form import ProfileForm, ProfileUpdateForm
-from user.models import Profile, Wishlist, Product
+from user.models import Profile, Wishlist, Product,Review
+from user.forms.create_review import ReviewCreateForm
+
+def get_my_reviews(request):
+    context = {'items': []}
+    if request.user.is_authenticated:
+        review = Review.objects.filter(user_id=request.user.id)
+        context["items"] = review
+        template = "user/get_my_reviews.html"
+    return render(request, template, context)
+
+
+
+def review_index(request, id):
+    if request.method == "POST":
+        form = ReviewCreateForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('products', id=id)
+    else:
+        form = ReviewCreateForm()
+    return render(request, 'user/review_index.html', {
+        'form': form,
+        'id': id
+    })
+
+
+def add_review(request, id):
+    print(request.is_ajax())
+    print(request.method == "POST")
+    print(request.user.is_authenticated)
+    if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
+        p = json.loads(request.body.decode('utf-8'))
+        pid = p["product_id"]
+        prev = p["review"]
+        product = Product.objects.get(id=pid)
+        obj = {'product': product, 'user_id': request.user.id, 'review': prev}
+        review = Review(**obj)
+        review.save()
+        return JsonResponse({'numberOfItems': Review.objects.filter(user_id=request.user.id).count()})
+    return redirect('products')
+
 
 
 def view_wishlist(request):
@@ -32,13 +73,13 @@ def add_to_wishlist(request):
         return JsonResponse({'numberOfItems': Wishlist.objects.filter(user_id=request.user.id).count()})
     return None
 
+
 def del_from_wishlist(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))
         cid = c["wishlist_id"]
         Wishlist.objects.get(id=cid).delete()
     return JsonResponse({})
-
 
 
 def register(request):
@@ -52,6 +93,7 @@ def register(request):
         'form': CustomUserCreationForm()
     })
 
+
 @login_required
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
@@ -62,9 +104,10 @@ def profile(request):
             profile.user = request.user
             profile.save()
             return redirect('profile')
-    return render(request, 'user/profile.html' , {
+    return render(request, 'user/profile.html', {
         'form': ProfileForm(instance=profile)
     })
+
 
 @login_required
 def profile_picture(request):
@@ -76,12 +119,13 @@ def profile_picture(request):
             profile.user = request.user
             profile.save()
             return redirect('profile')
-    return render(request, 'user/profile_picture.html' , {
+    return render(request, 'user/profile_picture.html', {
         'form': ProfileForm(instance=profile)
     })
 
+
 @login_required
-def update_profile(request): # ATH-ATH-ATH
+def update_profile(request):  # ATH-ATH-ATH
     if request.method == 'POST':
         form = ProfileUpdateForm(instance=request.user, data=request.POST)
         if form.is_valid():
@@ -90,6 +134,7 @@ def update_profile(request): # ATH-ATH-ATH
     return render(request, 'user/update_profile.html', {
         'form': ProfileUpdateForm(instance=request.user)
     })
+
 
 @login_required
 def change_password(request):
@@ -104,5 +149,3 @@ def change_password(request):
     return render(request, 'user/change_password.html', {
         'form': PasswordChangeForm(request.user)
     })
-
-

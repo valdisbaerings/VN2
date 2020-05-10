@@ -11,4 +11,18 @@
     <a href="{% url 'delete_console' consoles.id %}" class="block btn btn-primary">Delete console</a>
     <a href="{% url 'update_console' consoles.id %}" class="block btn btn-primary">Update console</a>
 
+    <h1>Reviews</h1>
+    {% for review in reviews %}
+        {% if review.product_id == consoles.id %}
+            {% for user in users %}
+                {% if user.id == review.user_id %}
+                    <h6>{{ user.username }}</h6>
+                {% endif %}
+            {% endfor %}
+            <div class="well">
+                <p>{{ review.review }}</p>
+            </div>
+
+        {% endif %}
+    {% endfor %}
 {% endblock %}

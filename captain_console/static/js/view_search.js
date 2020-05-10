@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('#search-history-btn').on('click', function (e) {
+
         e.preventDefault();
         $.ajax({
             url: '/products/search_history',

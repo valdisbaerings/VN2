@@ -12,6 +12,9 @@ urlpatterns = [
     path('change_password', views.change_password, name='change_password'),
     path('addToWishlist', views.add_to_wishlist, name="add-to-wishlist"),
     path('viewWishlist', views.view_wishlist, name="view-wishlist"),
-    path('deleteFromWishlist', views.del_from_wishlist, name="wishlist-del")
+    path('deleteFromWishlist', views.del_from_wishlist, name="wishlist-del"),
+    path('review/<int:id>', views.review_index, name="review_index"),
+    path('review/<int:id>/add_review', views.add_review, name="add_review"),
+    path('review/get_my_reviews', views.get_my_reviews, name="get_my_reviews"),
 
 ]

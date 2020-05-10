@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from product.forms.product_forms import ConsoleCreateForm, ConsoleUpdateForm
 from product.models import Product, ProductImage, SearchHistory
+from user.models  import Review, User
 from cart.models import Cart
 
 
@@ -54,13 +55,13 @@ def console_index(request):
 
 def get_console_by_id(request, id):
     return render(request, 'console/console_details.html', {
-        'consoles': get_object_or_404(Product, pk=id)
+        'consoles': get_object_or_404(Product, pk=id),'reviews': Review.objects.all(), 'users': User.objects.all()
     })
 
 
 def get_game_by_id(request, id):
     return render(request, 'game/game_details.html', {
-        'games': get_object_or_404(Product, pk=id)
+        'games': get_object_or_404(Product, pk=id), 'reviews': Review.objects.all(), 'users': User.objects.all()
     })
 
 
