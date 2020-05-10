@@ -33,16 +33,23 @@
                 <div class="col-md-4 mt-2">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-img-actions"><img
-                                    src={{ product.productimage_set.first.image }} class="card-img img-fluid" width="96"
-                                height="350" alt="">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <a href="games/{{ product.id }}">
+                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
+                                        width="96" height="350" alt=""></div>
+
+                                </a>
                             </div>
                         </div>
                         <div class="card-body bg-light text-center">
                             <div class="mb-2">
                                 <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
                                                                          class="text-default mb-2"
-                                                                         data-abc="true">{{ product.name }}</a></h6>
+                                                                         data-abc="true">
+                                    {{ product.name }}
+
+                                </a></h6>
 
                             </div>
                             <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
