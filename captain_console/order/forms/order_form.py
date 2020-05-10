@@ -7,9 +7,9 @@ COUNTRIES = [
 ]
 
 class OrderForm(forms.Form):
-    full_name = forms.CharField(label='Full name', max_length=100)
-    street_name = forms.CharField(label='Street name', max_length=100)
-    house_number = forms.CharField(label='House number', max_length=100)
+    fullname = forms.CharField(label='Full name', max_length=100)
+    streetname = forms.CharField(label='Street name', max_length=100)
+    housenumber = forms.CharField(label='House number', max_length=100)
     city = forms.CharField(label='City', max_length=100)
     country = forms.CharField(label='Country', widget=forms.Select(choices=COUNTRIES))
-    postal_code = forms.CharField(label='Postal code', max_length=100)
+    postalcode = forms.CharField(label='Postal code', max_length=100)

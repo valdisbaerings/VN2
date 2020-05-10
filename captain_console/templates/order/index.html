@@ -24,29 +24,11 @@
         </table>
         <form id="order_form" method="post">
             {{ form.as_p }}
-            <!-- <label for="fname">Full name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="sname">Street name:</label><br>
-            <input type="text" id="sname" name="sname"><br>
-            <label for="houseno">House number:</label><br>
-            <input type="text" id="houseno" name="houseno"><br>
-            <label for="city">City:</label><br>
-            <input type="text" id="city" name="city"><br>
-
-            <label for="counry">Country:</label><br>
-            <select id="counry">
-              <option value="iceland">Iceland</option>
-              <option value="denmark">Denmark</option>
-              <option value="norway">Norway</option>
-            </select><br>
-
-            <label for="pcode">Postal code:</label><br>
-            <input type="text" id="pcode" name="pcode"><br> -->
         </form>
 
 
 
-        <button type="button" class="btn bg-cart" ></i> Back</button>
+        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
         <button type="submit" form="order_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Process to payment</button>
 
     </div>
