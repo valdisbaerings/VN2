@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Edit Profile Picture</h1>
+    <h1>Update Profile Information</h1>
 
     <img src="{{ user.profile.profile_image }}" class="team-img"/>
+    <a href="{% url 'profile_picture'  %}" class="block btn btn-primary">Edit Profile Picture</a>
 
     <form class="form form-horizontal" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" class="btn btn-primary" value="Update"/>
     </form>
+    <a href="{% url 'change_password'  %}" class="block btn btn-primary">Change Password</a>
 {% endblock %}

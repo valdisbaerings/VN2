@@ -11,11 +11,14 @@ class ProfileForm(ModelForm):
             'profile_image': widgets.TextInput(attrs={ 'class': 'form-control' })
         }
 
-    #def save(self):
-        #self.user_id = ModelForm.id
 
-        #model = User
-        #exclude = ['id', 'user']
-        #widgets = {
-            #'first_name': widgets.TextInput(attrs=)
-        #}
+class ProfileUpdateForm(ModelForm):
+    class Meta:
+        model = User
+        exclude = [ 'id', 'last_login', 'is_superuser', 'groups', 'is_staff', 'is_active', 'password', 'user_permissions', 'date_joined' ]
+        widgets = {
+            'username': widgets.TextInput(attrs={ 'class': 'form-control' }),
+            'first_name': widgets.TextInput(attrs={ 'class': 'form-control' }),
+            'last_name': widgets.TextInput(attrs={'class': 'form-control'}),
+            'email': widgets.TextInput(attrs={'class': 'form-control'})
+        }
