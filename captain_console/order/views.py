@@ -59,22 +59,22 @@ def order_items(request):
     return render(request, template, context)
 
 
-def payment(request):
-    context = {}
-    template ="order/index.html"
-    if request.session.get("order_id", -1) == -1:
-        return redirect('/')
+# def payment(request):
+#     context = {}
+#     template ="order/index.html"
+#     if request.session.get("order_id", -1) == -1:
+#         return redirect('/')
     
-    # TODO: display form or process form
-    order = Order.objects.get(id = request.session["order_id"], user = request.user)
-    payment = Payment.objects.filter(order = order).first()
-    if paymnet == None:
-        pass
-        # TODO: if payment None, create new payment
-    else:
-        # TODO: update payment
+#     # TODO: display form or process form
+#     order = Order.objects.get(id = request.session["order_id"], user = request.user)
+#     payment = Payment.objects.filter(order = order).first()
+#     if paymnet == None:
+#         pass
+#         # TODO: if payment None, create new payment
+#     else:
+#         # TODO: update payment
 
-    return render(request, template, context)
+#     return render(request, template, context)
 
 """
 - Payment síða
