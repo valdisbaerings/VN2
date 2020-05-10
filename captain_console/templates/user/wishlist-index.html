@@ -20,20 +20,25 @@
                 <tr>
                     <td><img class="wish-list-img" src="{{ item.product.productimage_set.first.image }}"/></td>
                     {% if item.product.type_id == 2 %}
-                        <a href="products/consoles/{{ item.product.id }}">
-                            <td>{{ item.product.name }}</td>
-                        </a>
+                        <td>
+                            <a href="http://127.0.0.1:8000/products/consoles/{{ item.product.id }}">
+                                {{ item.product.name }}
+                            </a>
+                        </td>
 
                     {% else %}
-                        <a href="products/games/{{ item.product.id }}">
-                            <td>{{ item.product.name }}</td>
-                        </a>
+                        <td>
+                            <a href="http://127.0.0.1:8000/products/games/{{ item.product.id }}">
+                                {{ item.product.name }}
+                            </a>
+                        </td>
 
                     {% endif %}
 
                     <td>{{ item.product.price }}</td>
                     <td>
-                        <button onclick="deleteFromWishlist({{ item.id }})"><i class="fa fa-trash" aria-hidden="true"></i>
+                        <button onclick="deleteFromWishlist({{ item.id }})"><i class="fa fa-trash"
+                                                                               aria-hidden="true"></i>
                         </button>
                     </td>
                     <td>
