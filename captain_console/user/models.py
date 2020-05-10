@@ -8,6 +8,8 @@ from django.db import models
     #fields = User.fields + ('first_name', 'last_name', 'email')
 from django.db.models.signals import post_save
 
+from product.models import Product
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,6 +24,9 @@ class Profile(models.Model):
     post_save.connect(create_profile, sender=User)
 
 
+class Wishlist(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Wishlist</h3>
+
+
+    <div class="col-sm-8 col-sm-offset-3">
+        <table class="table">
+            <thead>
+            <th></th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Delete</th>
+            <th></th>
+
+            </thead>
+            <tfoot>
+            </tfoot>
+            {% for item in items %}
+                <tr>
+                    <td><img class="wish-list-img" src="{{ item.product.productimage_set.first.image }}"/></td>
+                    {% if item.product.type_id == 2 %}
+                        <a href="products/consoles/{{ item.product.id }}">
+                            <td>{{ item.product.name }}</td>
+                        </a>
+
+                    {% else %}
+                        <a href="products/games/{{ item.product.id }}">
+                            <td>{{ item.product.name }}</td>
+                        </a>
+
+                    {% endif %}
+
+                    <td>{{ item.product.price }}</td>
+                    <td>
+                        <button onclick="deleteFromWishlist({{ item.id }})"><i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button onclick="addToCart({{ item.product.id }})">Add to cart</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+    </div>
+
+
+
+
+{% endblock %}
