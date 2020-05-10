@@ -347,3 +347,8 @@ h4{
   word-wrap: break-word;
 }
 
+.nav-profile-pic {
+    width: 30px;
+    border-radius: 100%;
+}
+

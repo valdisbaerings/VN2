@@ -35,6 +35,7 @@
             </ul>
             {% if user.is_authenticated %}
                 <div id="shoppingcart">Items in cart <span id="items_in_cart">{{ numberOfItems }}</span></div>
+                <a href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="nav-profile-pic"/></a>
             {% endif %}
 
         </div><!-- /.navbar-collapse -->
