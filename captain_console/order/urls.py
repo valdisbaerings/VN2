@@ -1,4 +1,4 @@
-import cart
+import order
 from . import views
 from django.urls import path
 
