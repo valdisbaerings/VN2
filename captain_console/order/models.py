@@ -24,3 +24,10 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=100, decimal_places=2, default=0)
     count = models.IntegerField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+
+
+class Payment(models.Model):
+    cardholdername = models.CharField(max_length=100)
+    cardno = models.DecimalField(max_digits=16, decimal_places=10)
+    expdate = models.CharField(max_length=5)
+    cvc = models.DecimalField(max_digits=16, decimal_places=10)

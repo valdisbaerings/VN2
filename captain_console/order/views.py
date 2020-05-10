@@ -59,22 +59,40 @@ def order_items(request):
     return render(request, template, context)
 
 
-# def payment(request):
-#     context = {}
-#     template ="order/index.html"
-#     if request.session.get("order_id", -1) == -1:
-#         return redirect('/')
-    
-#     # TODO: display form or process form
-#     order = Order.objects.get(id = request.session["order_id"], user = request.user)
-#     payment = Payment.objects.filter(order = order).first()
-#     if paymnet == None:
-#         pass
-#         # TODO: if payment None, create new payment
-#     else:
-#         # TODO: update payment
+def payment(request):
+    context = {}
+    template ="order/payment.html"
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            if request.session.get("order_id", -1) == -1:
+                form = PaymentForm()
+                return redirect('/')
+            else:
+                payment = Payment.objects.get(id=request.session["order_id"])
+                form = OrderForm({'cardholdername': order.cardholdername, 'cardno': order.cardno, 'expdate': order.expdate,
+                                  'cvc': order.cvc})
 
-#     return render(request, template, context)
+            context["form"] = form
+
+    #order = Order.objects.get(id = request.session["order_id"], user = request.user)
+    #payment = Payment.objects.filter(order = order).first()
+
+        # TODO: if payment None, create new payment
+    elif request.method == "POST" and request.user.is_authenticated:
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            if request.session.get("order_id", -1) == -1:
+                order = Order(**form.cleaned_data, **order_dict)
+            else:
+                payment = Payment.objects.filter(order=order).first()
+                payment.cardholdername = form.cleaned_data.get("cardholdername")
+                payment.cardno = form.cleaned_data.get("cardno")
+                payment.expdate = form.cleaned_data.get("expdate")
+
+            payment.save()
+            return redirect('/order/review')
+        # TODO: update payment
+    return render(request, template, context)
 
 """
 - Payment síða
