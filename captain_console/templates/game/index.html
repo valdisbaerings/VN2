@@ -44,6 +44,11 @@
                                 </div>
                                 <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
                                 <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                                <p></p>
+                                <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                                <i class="glyphicon glyphicon-heart">
+                                </i> Add to wishlist
+                            </button>
                             </div>
                         </div>
                     </div>
