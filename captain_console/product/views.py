@@ -24,7 +24,8 @@ def product_index(request):
             'name': x.name,
             'price': x.price,
             'description': x.description,
-            'firstImage': x.productimage_set.first().image
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
@@ -51,7 +52,8 @@ def product_index(request):
             'name': x.name,
             'price': x.price,
             'description': x.description,
-            'firstImage': x.productimage_set.first().image
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
         }
             for x in products]
 
@@ -59,13 +61,13 @@ def product_index(request):
 
     if 'product_sorter' in request.GET:
         product_sorter = request.GET['product_sorter']
-        print('helluuu')
         products = [{
             'id': x.id,
             'name': x.name,
             'price': x.price,
             'description': x.description,
-            'firstImage': x.productimage_set.first().image
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
         }
             for x in Product.objects.all().order_by(product_sorter)]
         return JsonResponse({'data': products})
@@ -84,6 +86,7 @@ def search_index(request):
         form.save()
         return HttpResponse({'name': form})
 
+
 def view_search_index(request):
     search=SearchHistory.objects.values('name')
     return render(request, 'product/view_search_history.html', {
@@ -91,15 +94,14 @@ def view_search_index(request):
     })
 
 
-
-
-
 def game_index(request):
-    return render(request, 'game/index.html', {'products': Product.objects.all()})
+    return render(request, 'game/index.html', context={'products': Product.objects.filter(type_id=1).order_by('name'),
+                                                          'manufacturers': Manufacturer.objects.all()})
 
 
 def console_index(request):
-    return render(request, 'console/index.html', {'products': Product.objects.all()})
+    return render(request, 'console/index.html', context={'products': Product.objects.filter(type_id=2).order_by('name'),
+                                                          'manufacturers': Manufacturer.objects.all()})
 
 
 def get_console_by_id(request, id):
@@ -148,10 +150,3 @@ def update_console(request, id):
             'form': form,
             'id': id
         })
-
-
-def sort_by(request, order):
-    if order == 'reverse':
-        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('-price')})
-    else:
-        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by(order)})

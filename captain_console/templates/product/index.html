@@ -2,29 +2,6 @@
 {% block content %}
     <h1 class="red">All products</h1>
 
-    <h3>Choose manufacturer </h3>
-    <div class="filter">
-        {% for manu in manufacturers %}
-            {% if manu.name != 'N/A' %}
-                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }})">{{ manu }}</button>
-            {% endif %}
-        {% endfor %}
-    </div>
-
-
-    <h3>Sort by: </h3>
-    <div class="sorter">
-        <div class="sort-attributes">
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name')">Name</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price')">Price</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year')">Release year</button>
-        </div>
-    </div>
-
-
-
-
-
     <div class="input-group">
         {% csrf_token %}
         {{ form }}
@@ -37,54 +14,75 @@
             <button type="submit" id="search-btn" class="btn btn-default">Search</button>
             <a href={% url "view_search_history" %}>
                 <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
-
             </a>
-
-
         </div>
     </div>
 
+    <h3>Choose manufacturer </h3>
+    <div class="filter">
+        {% for manu in manufacturers %}
+            {% if manu.name != 'N/A' %}
+                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }})">{{ manu }}</button>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <h3>Sort by: </h3>
+    <div class="sorter">
+        <div class="sort-attributes">
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name')">Name</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price')">Price</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year')">Release year</button>
+        </div>
+    </div>
+
+
     <div class="well products">
-        <div class="container d-flex justify-content-center mt-50 mb-50">
-            <div class="row">
-                {% for product in products %}
-                    <div class="col-md-4 mt-2">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-body">
-                                    <div class="card-img-actions">
-                                        <a href="games/{{ product.id }}">
-                                            <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
-                                            width="96" height="350" alt=""></div>
+        <div class="product-container">
 
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-body bg-light text-center">
-                                <div class="mb-2">
-                                    <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
-                                                                             class="text-default mb-2"
-                                                                             data-abc="true">
-                                        {{ product.name }}
 
-                                    </a></h6>
+            {% for product in products %}
+                <div class="card">
+                    <div class="card-body">
+                        {% if product.type_id == 1 %}
+                            <a href="games/{{ product.id }}">
+                                <img src={{ product.productimage_set.first.image }} class="product-img">
 
-                                </div>
-                                <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
-                                <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
-                                        class="fa fa-cart-plus mr-2"></i> Add to cart
-                                </button>
-                                <p></p>
-                                <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
-                                    <i class="glyphicon glyphicon-heart">
-                                    </i> Add to wishlist
-                                </button>
-                                <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart" > Add review</a>
-                            </div>
-                        </div>
+                            </a>
+                            <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
+                                                                     class="text-default mb-2"
+                                                                     data-abc="true">
+                                {{ product.name }}
+
+                            </a></h6>
+                        {% else %}
+                            <a href="consoles/{{ product.id }}">
+                                <img src={{ product.productimage_set.first.image }} class="product-img">
+
+                            </a>
+                            <h6 class="font-weight-semibold mb-2"><a href="consoles/{{ product.id }}"
+                                                                     class="text-default mb-2"
+                                                                     data-abc="true">
+                                {{ product.name }}
+
+                            </a></h6>
+                        {% endif %}
+
+                        <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                        <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                class="fa fa-cart-plus mr-2"></i> Add to cart
+                        </button>
+                        <p></p>
+                        <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                            <i class="glyphicon glyphicon-heart">
+                            </i> Add to wishlist
+                        </button>
+                        <p></p>
+                        <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart"> Add
+                            review</a>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
