@@ -2,6 +2,8 @@
 {% block content %}
     <h1>Manufacturers</h1>
     {% for manufacturer in manufacturers %}
-        {% include 'manufacturer/single_manufacturer.html' with manufacturer=manufacturer %}
+        {% if manufacturer.name != 'N/A' %}
+            {% include 'manufacturer/single_manufacturer.html' with manufacturer=manufacturer %}
+        {% endif %}
     {% endfor %}
 {% endblock %}

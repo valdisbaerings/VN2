@@ -4,6 +4,7 @@ from .models import Cart
 from product.models import Product
 import json
 
+
 def view(request):
     context = {'items': []}
     if request.user.is_authenticated:

@@ -3,16 +3,92 @@
     {% for manu in manufacturer %}
         <h1>All products from {{ manu.name }}</h1>
     {% endfor %}
-    <h3>Consoles</h3>
-    <div class="consoles">
-    {% for console in consoles %}
-        {% include 'console/single_console.html' with product=console %}
-    {% endfor %}
+
+    <h2>Consoles</h2>
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+        <div class="row">
+            {% for product in consoles %}
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <a href="games/{{ product.id }}">
+                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
+                                        width="96" height="350" alt=""></div>
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body bg-light text-center">
+                            <div class="mb-2">
+                                <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
+                                                                         class="text-default mb-2"
+                                                                         data-abc="true">
+                                    {{ product.name }}
+
+                                </a></h6>
+
+                            </div>
+                            <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                            <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                    class="fa fa-cart-plus mr-2"></i> Add to cart
+                            </button>
+                            <p></p>
+                            <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                                <i class="glyphicon glyphicon-heart">
+                                </i> Add to wishlist
+                            </button>
+                            <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart" > Add review</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <h3>Games</h3>
-    <div class="games">
-    {% for game in games %}
-        {% include 'game/single_game.html' with product=game %}
-    {% endfor %}
+    <h2>Games</h2>
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+        <div class="row">
+            {% for product in games %}
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="card-img-actions">
+                                    <a href="games/{{ product.id }}">
+                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
+                                        width="96" height="350" alt=""></div>
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body bg-light text-center">
+                            <div class="mb-2">
+                                <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
+                                                                         class="text-default mb-2"
+                                                                         data-abc="true">
+                                    {{ product.name }}
+
+                                </a></h6>
+
+                            </div>
+                            <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                            <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                    class="fa fa-cart-plus mr-2"></i> Add to cart
+                            </button>
+                            <p></p>
+                            <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                                <i class="glyphicon glyphicon-heart">
+                                </i> Add to wishlist
+                            </button>
+                            <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart" > Add review</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+
 {% endblock %}
+
+

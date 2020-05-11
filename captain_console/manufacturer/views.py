@@ -24,7 +24,7 @@ def get_manufacturer_by_id(request, id):
     console_id_list = list(con)
     games = Product.objects.none()
     for x in range(len(con)):
-        gam = Product.objects.filter(console_id=console_id_list[x])
+        gam = Product.objects.filter(console_id=console_id_list[x], type_id=1)
         games = games.union(games, gam)
     context = {'consoles': consoles, 'games': games, 'manufacturer': Manufacturer.objects.filter(pk=id)}
     return render(request, 'manufacturer/manufacturer_details.html', context)
