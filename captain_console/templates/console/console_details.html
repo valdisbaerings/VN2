@@ -5,11 +5,9 @@
     <p>{{ consoles.price }}</p>
     <p>Manufacturer: {{ consoles.manufacturer.name }}</p>
     {% for product_image in consoles.productimage_set.all %}
-        <img src="{{ product_image.image }}" class="console-img"/>
+        <img src="{{ product_image.image }}" class="product-img"/>
     {% endfor %}
 
-    <a href="{% url 'delete_console' consoles.id %}" class="block btn btn-primary">Delete console</a>
-    <a href="{% url 'update_console' consoles.id %}" class="block btn btn-primary">Update console</a>
 
     <h1>Reviews</h1>
     {% for review in reviews %}

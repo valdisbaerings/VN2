@@ -6,6 +6,7 @@ const addToWishlist = (id) => {
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
             $("#items_in_wishlist").html(resp.numberOfItems)
+            confirm("The item has been added to your wishlist, check out your wishlist in your profile!")
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr

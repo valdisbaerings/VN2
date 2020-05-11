@@ -6,9 +6,11 @@ const addToCart = (id) => {
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
             $("#items_in_cart").html(resp.numberOfItems)
+            confirm("The item has been added to the cart")
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
+            alert("You are not logged in, please log in before adding to cart!")
             console.error(error)
         }
     });

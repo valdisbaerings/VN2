@@ -47,7 +47,8 @@ def add_review(request, id):
         review = Review(**obj)
         review.save()
         return JsonResponse({'numberOfItems': Review.objects.filter(user_id=request.user.id).count()})
-    return redirect('products')
+    elif request.user.is_authenticated == False:
+        return HttpResponse(status=404)
 
 
 
