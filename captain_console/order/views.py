@@ -110,7 +110,7 @@ def payment(request):
     - er eitthvað skrifað í alla dálka
     - ef hann á payment á þessu order_Id
         - uppfæra upplýsingar
-        - annars búa til nýjar payment uppl´syingar fyrir order
+        - annars búa til nýjar payment upplýsingar fyrir order
     - ef tekst að vista upplýsingar fara á summary/review síðu
 
 

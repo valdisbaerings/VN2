@@ -30,4 +30,4 @@ class Payment(models.Model):
     cardholdername = models.CharField(max_length=100)
     cardno = models.DecimalField(max_digits=16, decimal_places=10)
     expdate = models.CharField(max_length=5)
-    cvc = models.DecimalField(max_digits=16, decimal_places=10)
+    cvc = models.DecimalField(max_digits=3, decimal_places=2)
