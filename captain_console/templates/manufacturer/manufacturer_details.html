@@ -11,8 +11,8 @@
     </div>
     <h3>Games</h3>
     <div class="games">
-        {% for game in games %}
-            {% include 'game/single_game.html' with product=game %}
-        {% endfor %}
+    {% for game in games %}
+        {% include 'game/single_game.html' with product=game %}
+    {% endfor %}
     </div>
 {% endblock %}

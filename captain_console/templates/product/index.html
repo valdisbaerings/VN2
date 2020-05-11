@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1 class="red">All products</h1>
+
+    <label for="filter">Choose a manufacturer:</label>
+    <select id="filter">
+        {% for manu in manufacturers %}
+            <option value="/manufacturers/{{ manu.id }}">{{ manu }}</option>
+        {% endfor %}
+    </select>
+
+    <h3>Choose manufacturer </h3>
+    <div class="filter">
+        {% for manu in manufacturers %}
+            <div class="filter-button"><a href="/manufacturers/{{ manu.id }}">{{ manu }}</a></div>
+        {% endfor %}
+    </div>
+
     <h3>Sort by: </h3>
     <div class="sorter">
         <div class="sort-attributes">
             <div class="sort-button"><a href="/products/name">Name</a></div>
-            <div class="sort-button"><a href="/products/price">Price</a></div>
+            <div class="sort-button"><a href="/products/price">Price: Low to High</a></div>
+            <div class="sort-button"><a href="/products/reverse">Price: High to Low</a></div>
             <div class="sort-button"><a href="/products/release_year">Release year</a></div>
         </div>
     </div>

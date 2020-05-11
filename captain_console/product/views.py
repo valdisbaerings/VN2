@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 
 from product.forms.product_forms import ConsoleCreateForm, ConsoleUpdateForm
-from product.models import Product, ProductImage, SearchHistory
+from product.models import Product, ProductImage, SearchHistory, ProductForm, Manufacturer
 from user.models  import Review, User
 from cart.models import Cart
 
@@ -21,7 +21,7 @@ def product_index(request):
 
             for x in Product.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': products})
-    return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name')})
+    return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name'), 'manufacturers': Manufacturer.objects.all()})
 
 
 def product_index_type(request, type):
@@ -101,5 +101,17 @@ def update_console(request, id):
         })
 
 
-def sort_by(request, filter):
-    return render(request, 'product/index.html', context={'products': Product.objects.all().order_by(filter)})
+def sort_by(request, order):
+    if order == 'reverse':
+        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('-price')})
+    else:
+        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by(order)})
+
+
+def product_filter(request, manu_name):
+    qs = Product.objects.all()
+    manufacturer = Manufacturer.objects.all()
+    qs = qs.filter(manu_name=manufacturer)
+    return render(request, 'product/index.html', context={'products': qs, 'manufacturers': manufacturer})
+
+

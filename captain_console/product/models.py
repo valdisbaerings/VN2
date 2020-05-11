@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm, widgets
 
 # Create your models here.
 from django.shortcuts import render, get_object_or_404
@@ -54,3 +55,13 @@ class ProductImage(models.Model):
 class SearchHistory(models.Model):
     name=models.CharField(max_length=999)
 
+
+class ProductForm(ModelForm):
+    prefix = 'manufacturer'
+
+    class Meta:
+        model = Product
+        exclude = ['id', ]
+        widgets = {
+            'manufacturer': widgets.CheckboxSelectMultiple(attrs={})
+        }
