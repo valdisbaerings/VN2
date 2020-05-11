@@ -4,7 +4,8 @@ from cart.models import Cart
 from product.models import Product
 import json
 from order.forms.order_form import OrderForm
-from .models import OrderItem, Order
+from order.forms.payment_form import PaymentForm
+from .models import OrderItem, Order, Payment
 
 
 def order_items(request):
@@ -46,12 +47,6 @@ def order_items(request):
 
             order.save()
             
-            # TODO: hægt að setja þetta í síðasta submit (á summary síðu) - á við um næstu 4 línur
-            OrderItem.objects.filter(order=order).delete()
-
-            for item in items:
-                OrderItem(product=item.product, price=item.product.price, count=item.quantity, order=order).save()
-            
             request.session["order_id"] = order.id
 
             return redirect('/order/payment')
@@ -64,27 +59,27 @@ def payment(request):
     template ="order/payment.html"
     if request.method == "GET":
         if request.user.is_authenticated:
-            if request.session.get("order_id", -1) == -1:
+            if request.session.get("payment_id", -1) == -1:
                 form = PaymentForm()
-                return redirect('/')
+                #return redirect('/')
             else:
-                payment = Payment.objects.get(id=request.session["order_id"])
-                form = OrderForm({'cardholdername': order.cardholdername, 'cardno': order.cardno, 'expdate': order.expdate,
-                                  'cvc': order.cvc})
+                payment = Payment.objects.get(id=request.session["payment_id"])
+                form = OrderForm({'cardholdername': payment.cardholdername, 'cardno': payment.cardno, 'expdate': payment.expdate,
+                                  'cvc': payment.cvc})
 
             context["form"] = form
-
-    #order = Order.objects.get(id = request.session["order_id"], user = request.user)
-    #payment = Payment.objects.filter(order = order).first()
 
         # TODO: if payment None, create new payment
     elif request.method == "POST" and request.user.is_authenticated:
         form = PaymentForm(request.POST)
         if form.is_valid():
             if request.session.get("order_id", -1) == -1:
-                order = Order(**form.cleaned_data, **order_dict)
+                payment_dict = {
+                    'user': request.user
+                }
+                payment = Payment(**form.cleaned_data, **payment_dict)
             else:
-                payment = Payment.objects.filter(order=order).first()
+                payment = Payment.objects.filter(payment=payment).first()
                 payment.cardholdername = form.cleaned_data.get("cardholdername")
                 payment.cardno = form.cleaned_data.get("cardno")
                 payment.expdate = form.cleaned_data.get("expdate")
@@ -92,6 +87,39 @@ def payment(request):
             payment.save()
             return redirect('/order/review')
         # TODO: update payment
+    return render(request, template, context)
+
+
+
+def review(request):
+    context = {}
+    template = "order/review.html"
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            if request.session.get("payment_id", -1) == -1:
+                pass
+            else:
+                payment = Payment.objects.get(id=request.session["payment_id"])
+                order = Order.objects.get(id=request.session["order_id"])
+                items = Cart.objects.filter(user_id = request.user.id)
+
+                return redirect('/order/confirmation')
+
+    elif request.method == "POST":
+        payment = Payment.objects.get(id=request.session["payment_id"])
+        order = Order.session["order_id"]
+        items = Cart.objects.filter(user_id=request.user.id)
+
+        OrderItem.objects.filter(order=order).delete()
+
+        for item in items:
+            OrderItem(product=item.product, price=item.product.price, count=item.quantity, order=order).save()
+    return render(request, template, context)
+
+
+def confirmation(request):
+    context = {}
+    template = "order/confirmation.html"
     return render(request, template, context)
 
 """
