@@ -6,7 +6,7 @@
     <div class="filter">
         {% for manu in manufacturers %}
             {% if manu.name != 'N/A' %}
-                <button type="submit" id="filter_button_1" class="btn btn-default" onclick="filter_function({{ manu.id }})">{{ manu }}</button>
+                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }})">{{ manu }}</button>
             {% endif %}
         {% endfor %}
     </div>
@@ -15,12 +15,13 @@
     <h3>Sort by: </h3>
     <div class="sorter">
         <div class="sort-attributes">
-            <div class="sort-button"><a href="/products/name">Name</a></div>
-            <div class="sort-button"><a href="/products/price">Price: Low to High</a></div>
-            <div class="sort-button"><a href="/products/reverse">Price: High to Low</a></div>
-            <div class="sort-button"><a href="/products/release_year">Release year</a></div>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name')">Name</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price')">Price</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year')">Release year</button>
         </div>
     </div>
+
+
 
 
 
