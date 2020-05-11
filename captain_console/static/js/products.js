@@ -12,6 +12,7 @@ $(document).ready(function () {
                         <a href="/products/${d.id}">
                             <img class="product-img" src="${d.firstImage}"/>
                             <h4>${d.name}</h4>
+                            <p>${d.price}</p>
                             <p>${d.description}</p>
                         </a>
                     </div>`
