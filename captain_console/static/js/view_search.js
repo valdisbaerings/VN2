@@ -8,7 +8,7 @@ $(document).ready(function () {
             success: function (resp) {
 
                 var newHtml = resp.data.map(d => {
-                    return `<div class="well product">
+                    return `<div class="well products">
                             <h4>${d.name}</h4>
                     </div>`
                 });

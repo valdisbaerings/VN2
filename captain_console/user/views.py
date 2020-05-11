@@ -1,5 +1,5 @@
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -17,7 +17,6 @@ def get_my_reviews(request):
         context["items"] = review
         template = "user/get_my_reviews.html"
     return render(request, template, context)
-
 
 
 def review_index(request, id):
@@ -98,14 +97,7 @@ def register(request):
 @login_required
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
-    if request.method == 'POST':
-        form = ProfileForm(instance=profile, data=request.POST)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
-            return redirect('profile')
-    return render(request, 'user/profile.html', {
+    return render(request, 'user/profile.html' , {
         'form': ProfileForm(instance=profile)
     })
 
@@ -150,3 +142,4 @@ def change_password(request):
     return render(request, 'user/change_password.html', {
         'form': PasswordChangeForm(request.user)
     })
+

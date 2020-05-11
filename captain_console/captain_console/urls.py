@@ -19,7 +19,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="homepage-index"),
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin.urls')),
     path('products/', include('product.urls')),
     path('user/', include('user.urls')),
     path('cart/', include('cart.urls')),

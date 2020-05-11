@@ -11,7 +11,7 @@ const addReview = (id) => {
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
-            alert("You are not logged in, please log in before adding youre review!")
+            alert("You are not logged in, please log in before adding your review!")
             console.error(error)
         }
     });
