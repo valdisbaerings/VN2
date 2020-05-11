@@ -146,8 +146,6 @@ def confirmation(request):
     context = {}
     template = "order/confirmation.html"
     items = Cart.objects.filter(user_id=request.user.id)
-    if len(items) == 0:
-        return redirect("/")
     return render(request, template, context)
 
 
