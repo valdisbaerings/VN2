@@ -7,9 +7,6 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         exclude = [ 'id', 'user' ]
-        widgets = {
-            'profile_image': widgets.TextInput(attrs={ 'class': 'form-control' })
-        }
 
 
 class ProfileUpdateForm(ModelForm):
