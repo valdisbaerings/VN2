@@ -1,12 +1,12 @@
-const sorter_function = (id) => {
-    console.log(id)
+const sorter_function = (id, type) => {
+    console.log(type)
     $.ajax({
-        url: '/products?product_sorter=' + id,
+        url: '/products' + type + '?product_sorter=' + id,
         type: 'GET',
         success: function (resp) {
 
             var newHtml = resp.data.map(d => {
-                if (d.type_id == 1) {
+                if (d.type_id == 1 && type == '/games/') {
                     return `<div class="well products">
                         <a href="/products/games/${d.id}">
                             <img class="product-img" src="${d.firstImage}"/>

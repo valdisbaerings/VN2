@@ -6,7 +6,7 @@
     <div class="filter">
         {% for manu in manufacturers %}
             {% if manu.name != 'N/A' %}
-                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }})">{{ manu }}</button>
+                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }}, '/games')">{{ manu }}</button>
             {% endif %}
         {% endfor %}
     </div>
@@ -14,9 +14,9 @@
     <h3>Sort by: </h3>
     <div class="sorter">
         <div class="sort-attributes">
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name')">Name</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price')">Price</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year')">Release year</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name', '/games')">Name</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price', '/games')">Price</button>
+            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year', '/games')">Release year</button>
         </div>
     </div>
 

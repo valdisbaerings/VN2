@@ -1,12 +1,12 @@
-const filter_function = (id) => {
-    console.log(id)
+const filter_function = (id, type) => {
+    console.log(type)
     $.ajax({
-        url: '/products?product_filter=' + id,
+        url: '/products' + type + '?product_filter=' + id,
         type: 'GET',
         success: function (resp) {
 
             var newHtml = resp.data.map(d => {
-                if (d.type_id === 1) {
+                if (d.type_id === 1  && type != '/consoles/') {
 
                     return `<div class="well products">
                         <a href="/products/games/${d.id}">

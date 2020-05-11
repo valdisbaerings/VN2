@@ -95,11 +95,106 @@ def view_search_index(request):
 
 
 def game_index(request):
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+
+            for x in Product.objects.filter(name__icontains=search_filter, type_id = 1)]
+        return JsonResponse({'data': products})
+
+    if 'product_filter' in request.GET:
+        product_filter = request.GET['product_filter']
+        name_list = list(Product.objects.filter(type_id=2, manufacturer_id=product_filter).values_list('name', flat=True))
+        con = Console.objects.none()
+        for x in range(len(name_list)):
+            console_id = Console.objects.filter(name=name_list[x]).values_list('id', flat=True)
+            con = console_id.union(console_id, con)
+        console_id_list = list(con)
+        games = Product.objects.none()
+        for x in range(len(con)):
+            gam = Product.objects.filter(console_id=console_id_list[x], type_id=1)
+            games = games.union(games, gam)
+
+        pro = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in games]
+
+        return JsonResponse({'data': pro})
+
+    if 'product_sorter' in request.GET:
+        product_sorter = request.GET['product_sorter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in Product.objects.filter(type_id=1).order_by(product_sorter)]
+        return JsonResponse({'data': products})
+
     return render(request, 'game/index.html', context={'products': Product.objects.filter(type_id=1).order_by('name'),
                                                           'manufacturers': Manufacturer.objects.all()})
 
 
 def console_index(request):
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+
+            for x in Product.objects.filter(name__icontains=search_filter, type_id=2)]
+        return JsonResponse({'data': products})
+
+    if 'product_filter' in request.GET:
+        product_filter = request.GET['product_filter']
+        consoles = Product.objects.filter(type_id=2, manufacturer_id=product_filter)
+
+        pro = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in consoles]
+
+        return JsonResponse({'data': pro})
+
+    if 'product_sorter' in request.GET:
+        product_sorter = request.GET['product_sorter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in Product.objects.filter(type_id=2).order_by(product_sorter)]
+        return JsonResponse({'data': products})
+
     return render(request, 'console/index.html', context={'products': Product.objects.filter(type_id=2).order_by('name'),
                                                           'manufacturers': Manufacturer.objects.all()})
 
