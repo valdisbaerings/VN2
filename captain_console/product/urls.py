@@ -8,6 +8,7 @@ urlpatterns = [
     path('view_search_history', product_views.view_search_index, name="view_search_history"),
     path('consoles', product_views.console_index, name="console-index"),
     path('games', product_views.game_index, name="game-index"),
+    path('sales', product_views.sale_index, name="sale_index"),
     path('consoles/<int:id>', product_views.get_console_by_id, name="console_details"),
     path('games/<int:id>', product_views.get_game_by_id, name="game_details"),
     path('<str:order>', product_views.sort_by, name="product-index"),

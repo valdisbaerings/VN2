@@ -1,12 +1,20 @@
+
 {% extends "base.html" %}
 {% block content %}
     <h1>{{ games.name }}</h1>
     <p>{{ games.description }}</p>
-    <p>{{ games.price }}$</p>
-    <p>Developer: {{ games.developer }}</p>
+
+    <p>Manufacturer: {{ games.manufacturer.name }}</p>
     {% for product_image in games.productimage_set.all %}
         <img src="{{ product_image.image }}" class="product-img"/>
     {% endfor %}
+    <div style="text-align: right ">
+
+        <h4>Price: {{ games.price }}$</h4>
+        <button type="button" class="btn bg-cart" onclick="addToCart({{ games.id }});"><i
+                class="fa fa-cart-plus mr-2"></i> Add to cart
+        </button>
+    </div>
     <h1>Reviews</h1>
     {% for review in reviews %}
         {% if review.product_id == games.id %}

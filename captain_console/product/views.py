@@ -8,6 +8,12 @@ from product.models import Product, ProductImage, SearchHistory, ProductForm, Ma
 from user.models  import Review, User
 from cart.models import Cart
 
+def sale_index(request):
+    products=Product.objects.all()
+    return render(request, 'sale/index.html', {
+        'products': products
+    })
+
 
 def product_index(request):
     if 'search_filter' in request.GET:
