@@ -8,7 +8,7 @@ $(document).ready(function () {
             success: function (resp) {
 
                 var newHtml = resp.data.map(d => {
-                    return `<div class="well product">
+                    return `<div class="well products">
                         <a href="/products/${d.id}">
                             <img class="product-img" src="${d.firstImage}"/>
                             <h4>${d.name}</h4>

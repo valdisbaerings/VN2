@@ -43,45 +43,45 @@
 
         </div>
     </div>
-    <div class="container d-flex justify-content-center mt-50 mb-50">
-        <div class="row">
+    <div class="well products">
+        <div class="product-container">
+
+
             {% for product in products %}
-                <div class="col-md-4 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-body">
-                                <div class="card-img-actions">
-                                    <a href="games/{{ product.id }}">
-                                        <img src={{ product.productimage_set.first.image }} class="card-img img-fluid"
-                                        width="96" height="350" alt=""></div>
+                <div class="card">
+                    <div class="card-body">
 
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body bg-light text-center">
-                            <div class="mb-2">
-                                <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
-                                                                         class="text-default mb-2"
-                                                                         data-abc="true">
-                                    {{ product.name }}
 
-                                </a></h6>
+                        <a href="games/{{ product.id }}">
+                            <img src={{ product.productimage_set.first.image }} class="product-img">
 
-                            </div>
-                            <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
-                            <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
-                                    class="fa fa-cart-plus mr-2"></i> Add to cart
-                            </button>
-                            <p></p>
-                            <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
-                                <i class="glyphicon glyphicon-heart">
-                                </i> Add to wishlist
-                            </button>
-                            <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart" > Add review</a>
-                        </div>
+                        </a>
+
+
+                        <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
+                                                                 class="text-default mb-2"
+                                                                 data-abc="true">
+                            {{ product.name }}
+
+                        </a></h6>
+
+                        <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                        <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                class="fa fa-cart-plus mr-2"></i> Add to cart
+                        </button>
+                        <p></p>
+                        <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                            <i class="glyphicon glyphicon-heart">
+                            </i> Add to wishlist
+                        </button>
+                        <p></p>
+                        <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart"> Add
+                            review</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+
+
 {% endblock %}
