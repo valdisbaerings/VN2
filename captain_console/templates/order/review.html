@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Shopping cart</h3>
-    <h2>Review over your order</h2>
+    <h3>Review over your order</h3>
 
-    <h4>Purchasing items</h4>
     <div class="col-sm-8 col-sm-offset-3">
+        <h4>Items</h4>
         <table class="table">
             <thead>
             <th>Item</th>
@@ -24,28 +23,41 @@
                     <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>{{ item.total }}</td></tr>
                 {% endfor %}
         </table>
-        <form id="review" method="post">
-            {{ form.as_r }}
-        </form>
 
         <div>
-            <h2>Buyer information</h2>
+            <h4>Buyer information</h4>
+            <div>
+                Name: {{ order.fullname }} <br>
+                Street name: {{ order.streetname }}<br>
+                House number: {{ order.housenumber }}<br>
+                City: {{ order.city }}<br>
+                Country: {{ order.country }}<br>
+                Postal code: {{ order.postalcode }}<br>
+            </div>
+
 
         </div>
 
         <div>
-            <h2>Payment informations</h2>
+            <h4>Payment informations</h4>
+            <div>
+                Name of cardholder: {{ payment.cardno }}<br>
+                Card Number: {{ payment.cardno }}<br>
+                Expiration date: {{ payment.expdate }}<br>
+
+            </div>
 
         </div>
+
+    <form method="post" id="review_form">
+
+    </form>
 
 
         <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
-        <button type="submit" form="order_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Finish your order</button>
+        <button type="submit" form="review_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Finish your order</button>
 
     </div>
-
-
-
 
 
 {% endblock %}

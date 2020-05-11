@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Shopping cart</h3>
-
-    <h2>Total: {{ totalPrice }}</h2>
+    <div>
+        <h3>Payment information</h3>
 
         <form id="payment_form" method="post">
             {{ form.as_p }}
         </form>
 
-
-        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
-        <button type="submit" form="order_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Finish payment</button>
+        <h4>Total price: {{ totalPrice }}</h4>
 
     </div>
+
+        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
+        <button type="submit" form="payment_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Submit payment information</button>
+
 
 
 

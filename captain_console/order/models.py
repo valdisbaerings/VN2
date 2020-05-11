@@ -28,6 +28,7 @@ class OrderItem(models.Model):
 
 class Payment(models.Model):
     cardholdername = models.CharField(max_length=100)
-    cardno = models.DecimalField(max_digits=16, decimal_places=10)
+    cardno = models.CharField(max_length=16)
     expdate = models.CharField(max_length=5)
-    cvc = models.DecimalField(max_digits=3, decimal_places=2)
+    cvc = models.CharField(max_length=4)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
