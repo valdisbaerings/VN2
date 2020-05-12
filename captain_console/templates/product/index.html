@@ -2,23 +2,24 @@
 {% block content %}
     <h1 class="red">All products</h1>
     <div class="bar">
-        <div class="input-group">
-            <h4>Search </h4>
-            <div class="ble">
-                <div class="search-bar">
-                {% csrf_token %}
-                {{ form }}
-                    <input type="search" class="form-control" id="search-box" style="width: 165px" placeholder="Search here.."/>
-                    <form class="form form-horizontal" action="{% url 'search-index' %}" method="post">
-                        <input type="hidden" class="form-control" id="search-box" placeholder="Enter your search here.."
-                               name="search" method="POST"/>
-                    </form>
-                </div>
-                <div class="input-group-btn">
-                    <button type="submit" id="search-btn" class="btn btn-default">Search</button>
-                    <a href={% url "view_search_history" %}>
-                        <button type="button" id="search-history-btn" class="btn btn-default">Search History</button>
-                    </a>
+
+        <div class="sorter">
+            <h4>Sort products by: </h4>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose ...
+              </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('name', '')">
+                    Name
+                </button>
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('price', '')">
+                    Price
+                </button>
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('release_year', '')">
+                    Release year
+                </button>
                 </div>
             </div>
         </div>
@@ -26,7 +27,7 @@
         <div class="filter">
             <h4>Filter products by manufacturer: </h4>
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Choose ...
               </button>
 
@@ -40,26 +41,29 @@
             </div>
         </div>
 
-        <div class="sorter">
-            <h4>Sort products by: </h4>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choose ...
-              </button>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button type="submit" id="sorter_button" class="dropdown-item selected" onclick="sorter_function('name', '')">
-                    Name
-                </button>
-                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('price', '')">
-                    Price
-                </button>
-                <button type="submit" id="sorter_button" class="dropdown-item"
-                        onclick="sorter_function('release_year', '')">Release year
-                </button>
+        <div class="input-group">
+            <h4>Search </h4>
+            <div class="ble">
+                <div class="search-bar">
+                {% csrf_token %}
+                {{ form }}
+                    <input type="search" class="form-control" id="search-box" placeholder="Search here.."/>
+                    <form class="form form-horizontal" action="{% url 'search-index' %}" method="post">
+                        <input type="hidden" class="form-control" id="search-box" placeholder="Enter your search here.."
+                               name="search" method="POST"/>
+                    </form>
+                </div>
+                <div class="input-group-btn">
+                    <button type="button" id="search-btn" class="btn btn-default cust"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+                <div class="input-group-btn">
+                    <a href={% url "view_search_history" %}>
+                        <button type="button" id="search-history-btn" class="btn btn-default custom"><i class="fa fa-history"></i></button>
+                    </a>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="products">

@@ -40,11 +40,44 @@ form {
 
 .btn-default {
     color: goldenrod;
+    border-radius: 4px;
+
+    width: 160px;
+
 }
 
-.btn-secondary {
-    color: goldenrod;
-    min-width: 160px;
+.input-group-btn {
+    padding-right: 10px;
+    align-content: center;
+}
+
+.input-group {
+    padding-left: 2px;
+}
+
+.sorter {
+    padding-left: 2px;
+}
+
+.filter {
+    padding-left: 2px;
+}
+
+.cust {
+    width: 40px;
+    border-radius: 4px; !important;
+    align-content: center; !important;
+}
+
+.custom {
+    width: 40px;
+    border-radius: 4px; !important;
+    align-content: center; !important;
+}
+
+.search-bar {
+    width: 268px;
+    padding-right: 10px; !important;
 }
 
 
@@ -468,7 +501,7 @@ h3 a:hover {
 
 .ble {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 
@@ -499,10 +532,15 @@ h3 a:hover {
     color: rgb(223, 153, 49);
     cursor: pointer;
     text-align: left;
-    position: center;
+    position: right;
     padding-right: 30px;
 }
 
-.active {
-    background-color: #007bb6;
+.dropdown-item:hover {
+    color: black;
+}
+
+
+.red {
+    color: rgb(223, 153, 49);
 }

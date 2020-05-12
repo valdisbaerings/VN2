@@ -2,21 +2,44 @@
 {% block content %}
     <h1 class="red">Games</h1>
 
-    <div class="filter">
-    <h4>Choose manufacturer: </h4>
-        {% for manu in manufacturers %}
-            {% if manu.name != 'N/A' %}
-                <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }}, '/games')">{{ manu }}</button>
-            {% endif %}
-        {% endfor %}
-    </div>
+    <div class="bar">
 
-    <div class="sorter">
-    <h4>Sort by: </h4>
-        <div class="sort-attributes">
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name', '/games')">Name</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price', '/games')">Price</button>
-            <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year', '/games')">Release year</button>
+        <div class="sorter">
+            <h4>Sort products by: </h4>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose ...
+              </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('name', '/games')">
+                    Name
+                </button>
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('price', '/games')">
+                    Price
+                </button>
+                <button type="submit" id="sorter_button" class="dropdown-item" onclick="sorter_function('release_year', '/games')">
+                    Release year
+                </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter">
+            <h4>Filter products by manufacturer: </h4>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose ...
+              </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    {% for manu in manufacturers %}
+                        {% if manu.name != 'N/A' %}
+                            <button class="dropdown-item" type="button" onclick="filter_function({{ manu.id }}, '/games')">{{ manu }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
