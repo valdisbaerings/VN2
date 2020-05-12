@@ -3,7 +3,12 @@
 .orders {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 40px;
 
+}
+
+.orders-date {
+    margin-top: 80px;
 }
 
 
