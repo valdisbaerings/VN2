@@ -1,3 +1,30 @@
+/* Navigation bar*/
+
+.navbar-default {
+    /*background-color: white;*/
+    /*border-color: goldenrod;
+    /*border-width: thick;*/
+    height: 79px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    padding-top: 25px;
+    color: goldenrod;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+form {
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.btn-default {
+    color: goldenrod;
+}
+
+
 /*Sýna allt console/games/all products */
 p {
     font-size: 14px;
@@ -139,20 +166,6 @@ a {
     height: 200px;
     transition: transform 1s ease-in;
 }
-
-/*
-.products {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-.consoles {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-.games {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}*/
 
 
 /* FOOTER */
@@ -381,6 +394,7 @@ h4 {
 
 .nav-profile-pic {
     width: 30px;
+    height: 30px;
     border-radius: 100%;
 }
 

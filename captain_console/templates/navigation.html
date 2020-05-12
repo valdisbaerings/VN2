@@ -1,4 +1,8 @@
+{% load static %}
+
 <nav class="navbar navbar-default">
+
+
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -9,7 +13,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Captain Console</a>
+                <a href="/" class="navbar-brand">
+                    <img src="{% static 'logo2.png' %}" height="50" alt="logo">
+                </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,6 +28,14 @@
                 {% comment %}<li><a href="{% url 'accessory-index' %}">Accessories</a></li>{% endcomment %}
                 <li><a href="{% url 'sale_index' %}">Sales</a></li>
                 <li><a href="{% url 'about_us-index' %}">About us</a></li>
+                <!--
+               <li>
+                   <form class="form-inline my-2 my-lg-2">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" method="POST">
+                    <button class="btn btn-default" type="submit" >Search</button>
+                   </form>
+
+               </li>-->
 
 
                {% if user.is_authenticated %}
@@ -30,13 +44,23 @@
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register' %}">Register</a></li>
                {% endif %}
-                <li><a href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart</a></li>
 
+                {% if user.is_authenticated %}
+                    <li><a id="shoppingcart" href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart <span id="items_in_cart">({{ numberOfItems }})</span></a></li>
+                    {% else %}
+                    <li><a href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart</a></li>
+                {% endif %}
+
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="nav-profile-pic"/></a></li>
+                {% endif %}
             </ul>
-            {% if user.is_authenticated %}
-                <div id="shoppingcart">Items in cart <span id="items_in_cart">{{ numberOfItems }}</span></div>
-                <a href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="nav-profile-pic"/></a>
-            {% endif %}
+
+
+
+
+
 
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

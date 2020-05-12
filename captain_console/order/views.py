@@ -79,7 +79,7 @@ def payment(request):
             items = Cart.objects.filter(user_id=request.user.id)
             context["items"] = items
             context["totalPrice"] = sum(item.total for item in items)
-        # TODO: if payment None, create new payment
+
 
     elif request.method == "POST" and request.user.is_authenticated:
         form = PaymentForm(request.POST)
