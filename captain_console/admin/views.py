@@ -31,13 +31,23 @@ def admin_home(request):
         'products': products
     })
 
+def list_products(request, type_id):
+    products = Product.objects.filter(type_id=type_id)
+    return render(request, 'admin/products.html', {
+        'products': products,
+        'type_id': type_id
+    })
+
 def edit_product(request, id):
     instance = get_object_or_404(Product, pk=id)
     if request.method == 'POST':
         if instance.type_id == 1: #games
             form = GameUpdateForm(data=request.POST, instance=instance)
             if form.is_valid():
-                form.save()
+                product = form.save()
+                product_image = ProductImage(image=request.POST['image'], product=product)
+                product_image.save()
+
                 return redirect('admin_home')
         elif instance.type_id == 2:
             form = ConsoleUpdateForm(data=request.POST, instance=instance)
@@ -74,6 +84,11 @@ def create_game(request):
         form = GameCreateForm()
     return render(request, 'admin/create_game.html', {
         'form': form
+    })
+
+def single_product(request, id):
+    return render(request, 'admin/single_product.html', {
+        'product': get_object_or_404(Product, pk=id)
     })
 
 

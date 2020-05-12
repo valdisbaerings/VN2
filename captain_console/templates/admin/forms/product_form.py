@@ -14,6 +14,7 @@ for year in range(current_year - 1900):
     RELEASE_YEAR_CHOICES.append(release_year_str)
 
 class ConsoleUpdateForm(ModelForm):
+    image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Product
         exclude = ['id', 'developer', 'release_year', 'console', 'genre', 'type']
@@ -25,6 +26,7 @@ class ConsoleUpdateForm(ModelForm):
                    }
 
 class GameUpdateForm(ModelForm):
+    image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Product
         exclude = ['id', 'manufacturer','type']

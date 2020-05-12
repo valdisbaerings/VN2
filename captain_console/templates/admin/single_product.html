@@ -1,0 +1,29 @@
+{% extends "admin/admin_base.html" %}
+{% block content %}
+    <h2>{{ product.name }}</h2>
+    <a href="{% url 'edit_product' product.id %}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Edit</a>
+    {% if product.type_id == 1%}
+        <h4>Console type: </h4><p>{{ product.console }}</p>
+        <h4>Release year: </h4><p>{{ product.release_year }}</p>
+        <h4>Genre: </h4><p>{{ product.genre }}</p>
+        <h4>Developer: </h4><p>{{ product.developer }}</p>
+    {% else %}
+        <h4>Manufacturer: </h4><p>{{ product.manufacturer }}</p>
+    {% endif %}
+    <h4>Price: </h4><p>${{ product.price }}</p>
+        <h4>On sale:</h4><p>
+        {% if product.on_sale %}
+            <i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+        {% else %}
+            <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+        {% endif %}</p>
+        <h4>Description: </h4><p>{{ product.description }}</p>
+
+    <h4>Images: </h4>
+    {% for product_image in product.productimage_set.all %}
+        <img src="{{ product_image.image }}" style="width: 150px"/>
+    {% endfor %}
+
+    <a href="{% url 'edit_product' product.id %}"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add Image</a>
+
+{% endblock %}
