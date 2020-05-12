@@ -9,6 +9,7 @@ from user.models  import Review, User
 from manufacturer.models import Manufacturer
 from cart.models import Cart
 
+
 def sale_index(request):
     products=Product.objects.all()
     return render(request, 'sale/index.html', {

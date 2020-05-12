@@ -19,14 +19,10 @@
             <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('release_year', '/games')">Release year</button>
         </div>
     </div>
-
-    <div class="well products">
-        <div class="product-container">
-
-            {% for product in products %}
-                {% include 'game/single_game.html' with product=product %}
-            {% endfor %}
-        </div>
+    <div class="products">
+        {% for product in products %}
+            {% include 'game/single_game.html' with product=product %}
+        {% endfor %}
     </div>
 {% endblock %}
 
