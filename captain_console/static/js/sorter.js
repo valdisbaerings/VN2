@@ -6,7 +6,8 @@ const sorter_function = (id, type) => {
         success: function (resp) {
 
             var newHtml = resp.data.map(d => {
-                if (d.type_id == 1 && type == '/games/') {
+                if (d.type_id == 1 && (type == '/games/' || type == '')) {
+                    console.log('hello')
                     return `<div class="well products">
                         <a href="/products/games/${d.id}">
                             <img class="product-img" src="${d.firstImage}"/>
@@ -17,6 +18,7 @@ const sorter_function = (id, type) => {
                     </div>`
                 }
                 else {
+                    console.log('hello')
                     return `<div class="well products">
                         <a href="/products/consoles/${d.id}">
                             <img class="product-img" src="${d.firstImage}"/>

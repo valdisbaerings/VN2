@@ -111,6 +111,7 @@ def game_index(request):
 
     if 'product_filter' in request.GET:
         product_filter = request.GET['product_filter']
+        consoles = Product.objects.filter(type_id=2, manufacturer_id=product_filter)
         name_list = list(Product.objects.filter(type_id=2, manufacturer_id=product_filter).values_list('name', flat=True))
         con = Console.objects.none()
         for x in range(len(name_list)):

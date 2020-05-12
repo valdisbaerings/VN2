@@ -1,8 +1,32 @@
 <div class="well product">
-    <a href="games/{{ product.id }}">
-        <img class="product-img" src="{{ product.productimage_set.first.image }}" />
-        <h4>{{ product.name }}</h4>
-        <p>{{ product.price }}$</p>
-    </a>
+    {% if product.type_id == 1 %}
+            <div class="card">
+                <div class="card-body">
+                        <a href="games/{{ product.id }}">
+                            <img src={{ product.productimage_set.first.image }} class="product-img">
+
+                        </a>
+                        <h6 class="font-weight-semibold mb-2"><a href="games/{{ product.id }}"
+                                                                 class="text-default mb-2"
+                                                                 data-abc="true">
+                            {{ product.name }}
+
+                        </a></h6>
+
+                        <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
+                        <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
+                                class="fa fa-cart-plus mr-2"></i> Add to cart
+                        </button>
+                        <p></p>
+                        <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                            <i class="glyphicon glyphicon-heart">
+                            </i> Add to wishlist
+                        </button>
+                        <p></p>
+                        <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart"> Add
+                        review</a>
+                </div>
+            </div>
+    {% endif %}
 
 </div>
