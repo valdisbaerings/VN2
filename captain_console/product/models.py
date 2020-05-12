@@ -54,14 +54,3 @@ class ProductImage(models.Model):
 
 class SearchHistory(models.Model):
     name=models.CharField(max_length=999)
-
-
-class ProductForm(ModelForm):
-    prefix = 'manufacturer'
-
-    class Meta:
-        model = Product
-        exclude = ['id', ]
-        widgets = {
-            'manufacturer': widgets.CheckboxSelectMultiple(attrs={})
-        }

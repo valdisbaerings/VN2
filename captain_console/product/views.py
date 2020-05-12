@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 
 from product.forms.product_forms import ConsoleCreateForm, ConsoleUpdateForm
-from product.models import Product, ProductImage, SearchHistory, ProductForm, Manufacturer
+from product.models import Product, ProductImage, SearchHistory, Console
 from user.models  import Review, User
+from manufacturer.models import Manufacturer
 from cart.models import Cart
 
 def sale_index(request):
@@ -21,12 +22,56 @@ def product_index(request):
         products = [{
             'id': x.id,
             'name': x.name,
+            'price': x.price,
             'description': x.description,
-            'firstImage': x.productimage_set.first().image
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
         return JsonResponse({'data': products})
+
+    if 'product_filter' in request.GET:
+        product_filter = request.GET['product_filter']
+        consoles = Product.objects.filter(type_id=2, manufacturer_id=product_filter)
+        name_list = list(Product.objects.filter(type_id=2, manufacturer_id=product_filter).values_list('name', flat=True))
+        con = Console.objects.none()
+        for x in range(len(name_list)):
+            console_id = Console.objects.filter(name=name_list[x]).values_list('id', flat=True)
+            con = console_id.union(console_id, con)
+        console_id_list = list(con)
+        games = Product.objects.none()
+        for x in range(len(con)):
+            gam = Product.objects.filter(console_id=console_id_list[x], type_id=1)
+            games = games.union(games, gam)
+        products = Product.objects.none()
+        products = products.union(games, consoles)
+
+        pro = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in products]
+
+        return JsonResponse({'data': pro})
+
+    if 'product_sorter' in request.GET:
+        product_sorter = request.GET['product_sorter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in Product.objects.all().order_by(product_sorter)]
+        return JsonResponse({'data': products})
+
     return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('name'), 'manufacturers': Manufacturer.objects.all()})
 
 
@@ -41,6 +86,7 @@ def search_index(request):
         form.save()
         return HttpResponse({'name': form})
 
+
 def view_search_index(request):
     search=SearchHistory.objects.values('name')
     return render(request, 'product/view_search_history.html', {
@@ -48,15 +94,109 @@ def view_search_index(request):
     })
 
 
-
-
-
 def game_index(request):
-    return render(request, 'game/index.html', {'products': Product.objects.all()})
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+
+            for x in Product.objects.filter(name__icontains=search_filter, type_id = 1)]
+        return JsonResponse({'data': products})
+
+    if 'product_filter' in request.GET:
+        product_filter = request.GET['product_filter']
+        name_list = list(Product.objects.filter(type_id=2, manufacturer_id=product_filter).values_list('name', flat=True))
+        con = Console.objects.none()
+        for x in range(len(name_list)):
+            console_id = Console.objects.filter(name=name_list[x]).values_list('id', flat=True)
+            con = console_id.union(console_id, con)
+        console_id_list = list(con)
+        games = Product.objects.none()
+        for x in range(len(con)):
+            gam = Product.objects.filter(console_id=console_id_list[x], type_id=1)
+            games = games.union(games, gam)
+
+        pro = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in games]
+
+        return JsonResponse({'data': pro})
+
+    if 'product_sorter' in request.GET:
+        product_sorter = request.GET['product_sorter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in Product.objects.filter(type_id=1).order_by(product_sorter)]
+        return JsonResponse({'data': products})
+
+    return render(request, 'game/index.html', context={'products': Product.objects.filter(type_id=1).order_by('name'),
+                                                          'manufacturers': Manufacturer.objects.all()})
 
 
 def console_index(request):
-    return render(request, 'console/index.html', {'products': Product.objects.all()})
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+
+            for x in Product.objects.filter(name__icontains=search_filter, type_id=2)]
+        return JsonResponse({'data': products})
+
+    if 'product_filter' in request.GET:
+        product_filter = request.GET['product_filter']
+        consoles = Product.objects.filter(type_id=2, manufacturer_id=product_filter)
+
+        pro = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in consoles]
+
+        return JsonResponse({'data': pro})
+
+    if 'product_sorter' in request.GET:
+        product_sorter = request.GET['product_sorter']
+        products = [{
+            'id': x.id,
+            'name': x.name,
+            'price': x.price,
+            'description': x.description,
+            'firstImage': x.productimage_set.first().image,
+            'type_id': x.type_id
+        }
+            for x in Product.objects.filter(type_id=2).order_by(product_sorter)]
+        return JsonResponse({'data': products})
+
+    return render(request, 'console/index.html', context={'products': Product.objects.filter(type_id=2).order_by('name'),
+                                                          'manufacturers': Manufacturer.objects.all()})
 
 
 def get_console_by_id(request, id):
@@ -105,19 +245,3 @@ def update_console(request, id):
             'form': form,
             'id': id
         })
-
-
-def sort_by(request, order):
-    if order == 'reverse':
-        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by('-price')})
-    else:
-        return render(request, 'product/index.html', context={'products': Product.objects.all().order_by(order)})
-
-
-def product_filter(request, manu_name):
-    qs = Product.objects.all()
-    manufacturer = Manufacturer.objects.all()
-    qs = qs.filter(manu_name=manufacturer)
-    return render(request, 'product/index.html', context={'products': qs, 'manufacturers': manufacturer})
-
-

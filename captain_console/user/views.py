@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from templates.user.forms.user_form import CustomUserCreationForm
 from templates.user.forms.profile_form import ProfileForm, ProfileUpdateForm
-from user.models import Profile, Wishlist, Product,Review
+from user.models import Profile, Wishlist, Product, Review
 from user.forms.create_review import ReviewCreateForm
 
 def get_my_reviews(request):

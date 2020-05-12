@@ -1,1 +1,26 @@
-<h1>Admin Site!</h1>
+{% extends "admin/admin_base.html" %}
+{% block content %}
+
+<h2>Games</h2>
+    <table class="table">
+        <thead>
+            <th></th>
+            <th>Name</th>
+            <th>Console</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        {% for product in products %}
+            {% if product.type_id == 1 %}
+                <tr>
+                    <td><img src="{{ product.productimage_set.first.image }}" style="width: 50px; height: 50px"/></td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.console_id }}</td>
+                    <td><a href="edit_product/{{ product.id }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a></td>
+                    <td><button onclick="deleteProduct({{ product.id }})"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></button></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+{% endblock %}

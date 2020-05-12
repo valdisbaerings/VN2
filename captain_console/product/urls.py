@@ -11,7 +11,6 @@ urlpatterns = [
     path('sales', product_views.sale_index, name="sale_index"),
     path('consoles/<int:id>', product_views.get_console_by_id, name="console_details"),
     path('games/<int:id>', product_views.get_game_by_id, name="game_details"),
-    path('<str:order>', product_views.sort_by, name="product-index"),
     path('create_console', product_views.create_console, name="create_console"),
     path('delete_console/<int:id>', product_views.delete_console, name="delete_console"),
     path('update_console/<int:id>', product_views.update_console, name="update_console"),
