@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+from django.db.models import Count
 from .models import Cart
 from product.models import Product
 import json
@@ -28,8 +29,9 @@ def add_to_cart(request):
         else:
             obj = {'total': product.price, 'quantity': 1, 'product': product, 'user_id': request.user.id}
             cart = Cart(**obj)
-
         cart.save()
+       # cart = Cart.objects.filter(user_id=request.user.id)
+
         return JsonResponse({'numberOfItems': Cart.objects.filter(user_id=request.user.id).count()})
     elif request.user.is_authenticated == False:
         return HttpResponse(status=404)
@@ -45,5 +47,5 @@ def del_from_cart(request):
 
 
 def number_of_items(request):
-    print(request.user.id)
+    cart = Cart.objects.filter(user_id=request.user.id)
     return JsonResponse({'numberOfItems': 10})
