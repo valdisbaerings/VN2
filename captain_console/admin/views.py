@@ -92,6 +92,13 @@ def single_product(request, id):
     })
 
 
+def delete_image(request):
+    if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
+        c = json.loads(request.body.decode('utf-8'))
+        iid = c["image_id"]
+        ProductImage.objects.get(id=iid).delete()
+    return JsonResponse({})
+
 
 
 

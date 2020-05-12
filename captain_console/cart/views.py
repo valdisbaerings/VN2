@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Count
@@ -5,7 +6,7 @@ from .models import Cart
 from product.models import Product
 import json
 
-
+@login_required
 def view(request):
     context = {'items': []}
     if request.user.is_authenticated:
@@ -16,7 +17,7 @@ def view(request):
         template = "cart/index.html"
     return render(request, template, context)
 
-
+@login_required
 def add_to_cart(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         p = json.loads(request.body.decode('utf-8'))
@@ -37,7 +38,7 @@ def add_to_cart(request):
         return HttpResponse(status=404)
     return None
 
-
+@login_required
 def del_from_cart(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))

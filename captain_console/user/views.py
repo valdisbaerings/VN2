@@ -11,6 +11,7 @@ from user.models import Profile, Wishlist, Product, Review
 from user.forms.create_review import ReviewCreateForm
 from order.views import OrderItem, Order
 
+@login_required
 def get_my_orders(request):
     context = {'items': []}
     if request.user.is_authenticated:
@@ -23,6 +24,7 @@ def get_my_orders(request):
         template = "user/get_my_orders.html"
     return render(request, template, context)
 
+@login_required
 def get_my_reviews(request):
     context = {'items': []}
     if request.user.is_authenticated:
@@ -72,7 +74,7 @@ def view_wishlist(request):
         template = "user/wishlist-index.html"
     return render(request, template, context)
 
-
+@login_required
 def add_to_wishlist(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         p = json.loads(request.body.decode('utf-8'))
@@ -86,7 +88,7 @@ def add_to_wishlist(request):
         return JsonResponse({'numberOfItems': Wishlist.objects.filter(user_id=request.user.id).count()})
     return None
 
-
+@login_required
 def del_from_wishlist(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))

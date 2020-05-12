@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <form class="form form-horizontal" action="{% url 'add_review' id %}" method="post">
-        <textarea id="review-box" rows="5" cols="80">Write your review here!
-       </textarea>
+        <textarea id="review-box" rows="5" cols="80" placeholder="Write your review here!"></textarea>
         <button type="button" class="btn bg-cart" onclick="addReview({{ id }});">
             Add review
         </button>

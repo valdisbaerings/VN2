@@ -20,10 +20,10 @@
         <h4>Description: </h4><p>{{ product.description }}</p>
 
     <h4>Images: </h4>
+    <a href="{% url 'edit_product' product.id %}" id="addImgBtn"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add Image</a>
     {% for product_image in product.productimage_set.all %}
         <img src="{{ product_image.image }}" style="width: 150px"/>
+        <a onclick="deleteImage({{ product_image.id }})"><i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Remove</a>
     {% endfor %}
-
-    <a href="{% url 'edit_product' product.id %}"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Add Image</a>
 
 {% endblock %}

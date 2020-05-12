@@ -15,3 +15,19 @@ const deleteProduct = (id) => {
     });
     console.log('deleted')
 }
+
+const deleteImage = (id) => {
+    $.ajax({
+        url: `/admin/delete_image`,
+        type: 'POST',
+        data: JSON.stringify({image_id: id}),
+        headers: {'Content-Type': 'application/json'},
+        success: function () {
+            console.log('delete success')
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error(error)
+        }
+    });
+}
