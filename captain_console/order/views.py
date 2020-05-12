@@ -143,6 +143,9 @@ def review(request):
 
 
 def confirmation(request):
+    order = Order.objects.get(id=request.session["order_id"], user=request.user)
+    if order.completed == False:
+        return redirect("/")
     context = {}
     template = "order/confirmation.html"
     items = Cart.objects.filter(user_id=request.user.id)
