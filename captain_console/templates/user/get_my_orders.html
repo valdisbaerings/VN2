@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Orders</h2>
+
+
+
+    {% for order in orders %}
+        {% if order.completed == True %}
+
+            <h3>{{ order.date }}</h3>
+            <div class="orders">
+
+
+                {% for item in items %}
+
+                    {% if item.order_id == order.id %}
+                        <div>
+
+                            <img class="review-img" src="{{ item.product.productimage_set.first.image }}"/>
+
+
+                            <p>{{ item.price }}$</p>
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+
+            </div>
+            <h4>Total price: {{ order.total_price }}</h4>
+        {% endif %}
+    {% endfor %}
+
+
+{% endblock %}
