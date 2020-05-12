@@ -1,16 +1,17 @@
 const deleteProduct = (id) => {
-    /*$.ajax({
-        url: `/cart/deleteProduct`,
+    $.ajax({
+        url: `/admin/delete_product`,
         type: 'POST',
-        data: JSON.stringify({cart_id: id}),
+        data: JSON.stringify({product_id: id}),
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
+            console.log('delete success')
             location.reload();
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
             console.error(error)
         }
-    });*/
-    console.log('delete')
+    });
+    console.log('deleted')
 }

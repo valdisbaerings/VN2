@@ -15,7 +15,7 @@
                 <tr>
                     <td><img src="{{ product.productimage_set.first.image }}" style="width: 50px; height: 50px"/></td>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.console_id }}</td>
+                    <td>{{ product.console }}</td>
                     <td><a href="edit_product/{{ product.id }}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a></td>
                     <td><button onclick="deleteProduct({{ product.id }})"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></button></td>
                 </tr>
