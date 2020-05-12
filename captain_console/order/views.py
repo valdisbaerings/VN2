@@ -120,7 +120,8 @@ def review(request):
                 order = Order.objects.get(id=request.session["order_id"], user=request.user)
                 payment = Payment.objects.get(order=order)
                 items = Cart.objects.filter(user_id=request.user.id)
-                context={'order': order, 'payment': payment, 'items':items}
+                totalPrice = sum(item.total for item in items)
+                context={'order': order, 'payment': payment, 'items':items, 'totalPrice': totalPrice}
             else:
                 return redirect("/")
 
@@ -128,7 +129,6 @@ def review(request):
         order = Order.objects.get(id=request.session["order_id"], user=request.user)
         items = Cart.objects.filter(user_id=request.user.id)
 
-        #OrderItem.objects.filter(order=order).delete()
 
         for item in items:
             OrderItem(product=item.product, price=item.product.price, count=item.quantity, order=order).save()
