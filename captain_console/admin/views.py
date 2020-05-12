@@ -1,15 +1,21 @@
 import json
 
 from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-
 from product.models import Product, ProductImage
 from templates.admin.forms.login_form import AdminAuthenticationForm
+from templates.admin.forms.product_form import GameUpdateForm, ConsoleUpdateForm, GameCreateForm
 
+
+user_login_required = user_passes_test(lambda user: user.is_superuser, login_url='/admin')
+def superuser_required(view_func):
+    decorated_view_func = login_required(user_login_required(view_func), login_url='/admin')
+    return decorated_view_func
 
 # Create your views here.
-from templates.admin.forms.product_form import GameUpdateForm, ConsoleUpdateForm, GameCreateForm
+
 
 
 def admin_login(request):
@@ -25,12 +31,14 @@ def admin_login(request):
         'form': form
     })
 
+@superuser_required
 def admin_home(request):
     products = Product.objects.all()
     return render(request, 'admin/index.html', {
         'products': products
     })
 
+@superuser_required
 def list_products(request, type_id):
     products = Product.objects.filter(type_id=type_id)
     return render(request, 'admin/products.html', {
@@ -38,6 +46,7 @@ def list_products(request, type_id):
         'type_id': type_id
     })
 
+@superuser_required
 def edit_product(request, id):
     instance = get_object_or_404(Product, pk=id)
     if request.method == 'POST':
@@ -64,6 +73,7 @@ def edit_product(request, id):
         'id': id
     })
 
+@superuser_required
 def delete_product(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))
@@ -71,6 +81,7 @@ def delete_product(request):
         Product.objects.get(id=pid).delete()
     return JsonResponse({})
 
+@superuser_required
 def create_game(request):
     if request.method == "POST":
         form = GameCreateForm(data=request.POST)
@@ -86,12 +97,13 @@ def create_game(request):
         'form': form
     })
 
+@superuser_required
 def single_product(request, id):
     return render(request, 'admin/single_product.html', {
         'product': get_object_or_404(Product, pk=id)
     })
 
-
+@superuser_required
 def delete_image(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))
