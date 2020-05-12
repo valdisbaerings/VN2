@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1 class="red">All consoles</h1>
+    <h1 class="red">Consoles</h1>
 
-    <h3>Choose manufacturer </h3>
     <div class="filter">
+    <h4>Choose manufacturer: </h4>
         {% for manu in manufacturers %}
             {% if manu.name != 'N/A' %}
                 <button type="submit" id="filter_button" class="btn btn-default" onclick="filter_function({{ manu.id }}, '/consoles')">{{ manu }}</button>
@@ -11,8 +11,8 @@
         {% endfor %}
     </div>
 
-    <h3>Sort by: </h3>
     <div class="sorter">
+    <h4>Sort by: </h4>
         <div class="sort-attributes">
             <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('name', '/consoles')">Name</button>
             <button type="submit" id="sorter_button" class="btn btn-default" onclick="sorter_function('price', '/consoles')">Price</button>

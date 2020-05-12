@@ -1,5 +1,23 @@
 /* Navigation bar*/
 
+.orders {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+
+}
+
+.orders-date {
+    margin-top: 80px;
+}
+
+
+.item {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+
 .navbar-default {
     /*background-color: white;*/
     /*border-color: goldenrod;

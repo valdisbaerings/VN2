@@ -9,6 +9,19 @@ from templates.user.forms.user_form import CustomUserCreationForm
 from templates.user.forms.profile_form import ProfileForm, ProfileUpdateForm
 from user.models import Profile, Wishlist, Product, Review
 from user.forms.create_review import ReviewCreateForm
+from order.views import OrderItem, Order
+
+def get_my_orders(request):
+    context = {'items': []}
+    if request.user.is_authenticated:
+        order = Order.objects.filter(user_id=request.user.id)
+        order_item = OrderItem.objects.all()
+        products = Product.objects.all()
+        context["items"] = order_item
+        context["orders"] = order
+        context["products"] = products
+        template = "user/get_my_orders.html"
+    return render(request, template, context)
 
 def get_my_reviews(request):
     context = {'items': []}
