@@ -17,6 +17,10 @@
     grid-template-columns: 1fr;
 }
 
+.status {
+    font-weight: bold;
+}
+
 
 .navbar-default {
     /*background-color: white;*/
