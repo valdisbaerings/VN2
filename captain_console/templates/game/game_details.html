@@ -11,6 +11,9 @@
     <div style="text-align: right ">
 
         <h4>Price: ${{ games.price }}</h4>
+        {% if games.on_sale == True %}
+            <p>20% off now</p>
+        {% endif %}
         <button type="button" class="btn bg-cart" onclick="addToCart({{ games.id }});"><i
                 class="fa fa-cart-plus mr-2"></i> Add to cart
         </button>

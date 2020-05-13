@@ -6,6 +6,7 @@ import json
 from order.forms.order_form import OrderForm
 from order.forms.payment_form import PaymentForm
 from .models import OrderItem, Order, Payment
+from decimal import Decimal
 
 
 def order_items(request):
@@ -21,24 +22,56 @@ def order_items(request):
             else:
                 order = Order.objects.get(id=request.session["order_id"])
                 form = OrderForm({'fullname': order.fullname, 'streetname': order.streetname, 'housenumber': order.housenumber, 'city': order.city, 'country': order.country, 'postalcode': order.postalcode})
+            DiscountPrice = 0
+            totalPrice = 0
+            for item in items:
+                if item.product.on_sale == True:
+                    DiscountPrice += item.total * Decimal(0.2)
+                    totalPrice += item.total * Decimal(0.8)
+                else:
+                    totalPrice += item.total
+            DiscountPrice = round(DiscountPrice, 2)
+            totalPrice = round(totalPrice, 2)
 
             context["form"] = form
             context["items"] = items
-            context["totalPrice"] = sum(item.total for item in items)
+            context["totalPrice"] = totalPrice
+            context["DiscountPrice"] = DiscountPrice
             
     elif request.method == "POST" and request.user.is_authenticated:
         form = OrderForm(request.POST)
         if form.is_valid():
             items = Cart.objects.filter(user_id=request.user.id)
+            DiscountPrice = 0
+            totalPrice = 0
+            for item in items:
+                if item.product.on_sale == True:
+                    DiscountPrice += item.total * Decimal(0.2)
+                    totalPrice += item.total * Decimal(0.8)
+                else:
+                    totalPrice += item.total
+            DiscountPrice = round(DiscountPrice, 2)
+            totalPrice = round(totalPrice, 2)
             if request.session.get("order_id", -1) == -1:
                 order_dict = {
                     'user': request.user,
-                    'total_price': sum(item.total for item in items),
+                    'total_price': totalPrice,
+                    'DiscountPrice': DiscountPrice
                 }
                 order = Order(**form.cleaned_data, **order_dict)
             else:
+                DiscountPrice = 0
+                totalPrice = 0
+                for item in items:
+                    if item.product.on_sale == True:
+                        DiscountPrice += item.total * Decimal(0.2)
+                        totalPrice += item.total * Decimal(0.8)
+                    else:
+                        totalPrice += item.total
+                DiscountPrice = round(DiscountPrice, 2)
+                totalPrice = round(totalPrice, 2)
                 order = Order.objects.get(id=request.session["order_id"], user=request.user)
-                order.total_price = sum(item.product.price for item in items)
+                order.total_price = totalPrice
                 order.user = request.user
                 order.fullname = form.cleaned_data.get("fullname")
                 order.streetname = form.cleaned_data.get("streetname")
@@ -75,10 +108,22 @@ def payment(request):
                 #TODO: Kasta villu því það er ekki til nein pöntun
                 return redirect('/')
 
+            DiscountPrice = 0
+            totalPrice = 0
+            for item in items:
+                if item.product.on_sale == True:
+                    DiscountPrice += item.total * Decimal(0.2)
+                    totalPrice += item.total * Decimal(0.8)
+                else:
+                    totalPrice += item.total
+            DiscountPrice = round(DiscountPrice, 2)
+            totalPrice = round(totalPrice, 2)
+
             context["form"] = form
             items = Cart.objects.filter(user_id=request.user.id)
             context["items"] = items
-            context["totalPrice"] = sum(item.total for item in items)
+            context["totalPrice"] = totalPrice
+            context["DiscountPrice"] = DiscountPrice
 
 
     elif request.method == "POST" and request.user.is_authenticated:
@@ -120,8 +165,18 @@ def review(request):
                 order = Order.objects.get(id=request.session["order_id"], user=request.user)
                 payment = Payment.objects.get(order=order)
                 items = Cart.objects.filter(user_id=request.user.id)
-                totalPrice = sum(item.total for item in items)
-                context={'order': order, 'payment': payment, 'items':items, 'totalPrice': totalPrice}
+                #totalPrice = sum(item.total for item in items)
+                DiscountPrice = 0
+                totalPrice = 0
+                for item in items:
+                    if item.product.on_sale == True:
+                        DiscountPrice += item.total * Decimal(0.2)
+                        totalPrice += item.total * Decimal(0.8)
+                    else:
+                        totalPrice += item.total
+                DiscountPrice = round(DiscountPrice, 2)
+                totalPrice = round(totalPrice, 2)
+                context={'order': order, 'payment': payment, 'items':items, 'totalPrice': totalPrice, 'DiscountPrice': DiscountPrice}
             else:
                 return redirect("/")
 
@@ -148,7 +203,7 @@ def confirmation(request):
     context = {}
     template = "order/confirmation.html"
     items = Cart.objects.filter(user_id=request.user.id)
-    request.session["order_id"] = -1
+    #request.session["order_id"] = -1
     return render(request, template, context)
 
 

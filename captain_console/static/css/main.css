@@ -1,5 +1,9 @@
 /* Navigation bar*/
 
+#prod {
+    display: none;
+}
+
 .orders {
     display: flex;
     flex-wrap: wrap;
@@ -85,6 +89,16 @@ form {
 }
 
 
+/*Shopping*/
+
+#cart {
+  text-align: center;
+}
+
+.tab { margin-left: 20px; }
+
+.tabRight { margin-right: 50px; }
+
 /*Sýna allt console/games/all products */
 p {
     font-size: 14px;
@@ -126,6 +140,7 @@ p {
 .h2 {
     color: rgb(223, 153, 49);
 }
+
 
 .manu :hover {
     color: black;

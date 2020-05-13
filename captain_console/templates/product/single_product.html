@@ -25,18 +25,29 @@
                 </a></h6>
             {% endif %}
 
+
             <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
-            <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i
-                    class="fa fa-cart-plus mr-2"></i> Add to cart
-            </button>
-            <p></p>
-            <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
-                <i class="glyphicon glyphicon-heart">
-                </i> Add to wishlist
-            </button>
-            <p></p>
-            <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart"> Add
-                review</a>
+
+            {% if product.on_sale == True %}
+                <p>20% off now</p>
+            {% endif %}
+        
+            <div class="col-sm-8 col-sm-offset-3">
+
+
+            </div>
+            <div class="tabRight">
+                <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i class="fa fa-cart-plus mr-2"></i> Add to cart
+                </button>
+                <p></p>
+                <button type="button" class="btn bg-cart" onclick="addToWishlist({{ product.id }});">
+                    <i class="glyphicon glyphicon-heart">
+                    </i> Add to wishlist
+                </button>
+                <a type="button" href="{% url 'review_index' product.id %}" class="btn bg-cart"> Add review</a>
+
+            </div>
+
         </div>
     </div>
 </div>

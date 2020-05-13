@@ -18,6 +18,13 @@
                                         width="96" height="350" alt="">
                                     </div>
                                     {{ product.name }}
+                                    <div>
+                                        {% if product.on_sale == True %}
+                                            <p>20% off now</p>
+                                        {% else %}
+                                            <br>
+                                        {% endif %}
+                                    </div>
                                 </a>
                             </h6>
                         </div>
@@ -48,6 +55,13 @@
                                         width="96" height="350" alt="">
                                     </div>
                                     {{ product.name }}
+                                    <div>
+                                        {% if product.on_sale == True %}
+                                            <p>20% off now</p>
+                                        {% else %}
+                                            <br>
+                                        {% endif %}
+                                    </div>
                                 </a>
                             </h6>
                         </div>

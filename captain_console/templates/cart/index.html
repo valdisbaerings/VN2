@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Shopping cart</h3>
+
 
     <div class="col-sm-8 col-sm-offset-3">
+
+         <h3>Shopping cart</h3>
+        <br>
+
         <table class="table">
             <thead>
             <th>Item</th>
@@ -15,19 +19,19 @@
         <tfoot>
         <tr>
             <td></td>
-            <td></td>
-            <td>Total: {{ totalPrice }}</td>
+            <td><b>Discount:</b> ${{ DiscountPrice }}</td>
+            <td><b>Total:</b> ${{ totalPrice }}</td>
             <td></td>
         </tr>
         </tfoot>
                 {% for item in items %}
-                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>{{ item.total }}</td><td><button onclick="deleteFromCart({{ item.id }})"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>
+                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>${{ item.total }}</td><td><button onclick="deleteFromCart({{ item.id }})"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>
                 {% endfor %}
         </table>
 
         <button type="button" class="btn bg-cart" onclick="history.back()"> Back</button>
         <button type="button" class="btn bg-cart" onclick="location.href='/order'" ><i class="fa fa-cart-plus mr-2" ></i> Checkout</button>
-
+        <br><br>
     </div>
 
 {% endblock %}

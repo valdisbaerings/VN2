@@ -20,6 +20,7 @@ def sale_index(request):
 
 
 def product_index(request):
+    print("HIII")
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         products = [{
@@ -32,6 +33,7 @@ def product_index(request):
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
+        print(products)
         return JsonResponse({'data': products})
 
     if 'product_filter' in request.GET:
