@@ -38,6 +38,10 @@ $(document).ready(function () {
                     }
                 });
                 $('.products').html(newHtml.join(''));
+                if ($('.products').is(':empty')) {
+                    alert('No items matched your search! Please try again.')
+                    location.reload()
+                }
                 $('#search-box').val('');
 
             },

@@ -7,11 +7,14 @@ const addReview = (id) => {
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
             $("#items_in_reviewlist").html(resp.numberOfItems)
+            confirm("Your review has been added!")
+            window.history.back();
+            location.reload()
 
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
-            alert("You are not logged in, please log in before adding your review!")
+            alert("You are not logged in. Please log in before adding your review!")
             console.error(error)
         }
     });

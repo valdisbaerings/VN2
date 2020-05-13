@@ -6,11 +6,11 @@ const addToWishlist = (id) => {
         headers: {'Content-Type': 'application/json'},
         success: function (resp) {
             $("#items_in_wishlist").html(resp.numberOfItems)
-            confirm("The item has been added to your wishlist, check out your wishlist in your profile!")
+            confirm("The item has been added to your wishlist! You can check out your wishlist in your profile!")
         },
         error: function (xhr, status, error) {
             // TODO: Show toastr
-            alert("You are not logged in, please log in before adding to your wishlist!")
+            alert("You are not logged in. Please log in before adding to your wishlist.")
 
             console.error(error)
         }

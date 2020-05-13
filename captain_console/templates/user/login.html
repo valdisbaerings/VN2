@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="login-group">
+        <form method="post" class="form form-horizontal">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-default" value="Login"/>
+        </form>
+    </div>
 
-    <form method="post" class="form form-horizontal">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-primary" value="Login"/>
-    </form>
-
-    <h4>Don't have an account?</h4>
-    <a href="{% url 'register'  %}" class="block btn btn-primary">Sign Up!</a>
+        <h4>Don't have an account?</h4>
+        <a href="{% url 'register'  %}" class="block btn btn-default">Sign Up!</a>
 
 {% endblock %}
