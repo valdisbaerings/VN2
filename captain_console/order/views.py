@@ -56,7 +56,6 @@ def order_items(request):
                 order_dict = {
                     'user': request.user,
                     'total_price': totalPrice,
-                    'DiscountPrice': DiscountPrice
                 }
                 order = Order(**form.cleaned_data, **order_dict)
             else:

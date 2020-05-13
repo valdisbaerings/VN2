@@ -63,6 +63,23 @@ form {
     padding-left: 2px;
 }
 
+.saelir {
+	    display: grid;
+	    grid-template-columns: 1fr 1fr 1fr;
+}
+.mybtn {
+    padding-top: 100px;
+    padding-left: 20px;
+}
+
+.btn1 {
+    padding-bottom: 100px;
+}
+
+.buttons {
+    padding-bottom: 50px;
+}
+
 .sorter {
     padding-left: 2px;
 }
@@ -562,4 +579,8 @@ h3 a:hover {
 
 .red {
     color: rgb(223, 153, 49);
+}
+
+.form-horizontal yes{
+    padding-bottom: 100px;
 }
