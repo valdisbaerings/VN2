@@ -15,12 +15,12 @@
         <tfoot>
         <tr>
             <td></td>
-            <td></td>
-            <td><b>Total: {{ totalPrice }}</b></td>
+            <td><b>Discount:</b> ${{ DiscountPrice }}</td>
+            <td><b>Total:</b> ${{ totalPrice }}</td>
         </tr>
         </tfoot>
                 {% for item in items %}
-                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>{{ item.total }}</td></tr>
+                    <tr><td>{{ item.product.name }}</td><td>{{ item.quantity }}</td><td>${{ item.total }}</td></tr>
                 {% endfor %}
         </table>
 
