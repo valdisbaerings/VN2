@@ -25,8 +25,13 @@
                 </a></h6>
             {% endif %}
 
+
             <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
 
+            {% if product.on_sale == True %}
+                <p>20% off now</p>
+            {% endif %}
+        
             <div class="col-sm-8 col-sm-offset-3">
 
 
