@@ -36,6 +36,17 @@
                    </form>
 
                </li>-->
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="nav-profile-pic"/></a></li>
+                {% endif %}
+
 
 
                {% if user.is_authenticated %}
@@ -45,6 +56,8 @@
                     <li><a href="{% url 'register' %}">Register</a></li>
                {% endif %}
 
+
+
                 {% if user.is_authenticated %}
                     <li><a id="shoppingcart" href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart <span id="items_in_cart">{{ numberOfItems}}</span></a></li>
                     {% else %}
@@ -52,9 +65,7 @@
                 {% endif %}
 
 
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="nav-profile-pic"/></a></li>
-                {% endif %}
+
             </ul>
 
 

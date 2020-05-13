@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
-        <h3>Payment information</h3>
+    <div class="col-sm-8 col-sm-offset-3">
+        <h3>Payment information</h3><br>
 
         <form id="payment_form" method="post">
             {{ form.as_p }}
-        </form>
+        </form><br>
 
-        <h4>Total price: ${{ totalPrice }}</h4>
+        <h4>Total price: ${{ totalPrice }}</h4><br>
+
+    </div>
+    <br>
+    <div class="col-sm-8 col-sm-offset-3">
+        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
+            <button type="submit" form="payment_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Submit payment</button>
+        <br><br>
 
     </div>
 
-        <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
-        <button type="submit" form="payment_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Submit payment</button>
 
 
 
