@@ -136,7 +136,6 @@ def review(request):
         Cart.objects.filter(user_id=request.user.id).delete()
         order.completed = True
         order.save()
-        request.session["order_id"] = -1
         return redirect('/order/confirmation')
 
     return render(request, template, context)
@@ -149,6 +148,7 @@ def confirmation(request):
     context = {}
     template = "order/confirmation.html"
     items = Cart.objects.filter(user_id=request.user.id)
+    request.session["order_id"] = -1
     return render(request, template, context)
 
 
