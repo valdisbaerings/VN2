@@ -10,8 +10,7 @@ RELEASE_YEAR_CHOICES = []
 current_year = int(datetime.now().year)
 for year in range(current_year - 1900):
     my_year = 1900 + year
-    release_year_str = str(my_year)
-    RELEASE_YEAR_CHOICES.append(release_year_str)
+    RELEASE_YEAR_CHOICES.append(my_year)
 
 class ConsoleUpdateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
