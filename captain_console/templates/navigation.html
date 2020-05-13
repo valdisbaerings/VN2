@@ -46,7 +46,7 @@
                {% endif %}
 
                 {% if user.is_authenticated %}
-                    <li><a id="shoppingcart" href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart <span id="items_in_cart">({{ numberOfItems }})</span></a></li>
+                    <li><a id="shoppingcart" href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart <span id="items_in_cart">{{ numberOfItems}}</span></a></li>
                     {% else %}
                     <li><a href="{% url 'cart-index' %}"><i class="fa fa-cart-plus mr-2"></i> Cart</a></li>
                 {% endif %}

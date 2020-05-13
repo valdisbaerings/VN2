@@ -32,8 +32,10 @@ def add_to_cart(request):
             cart = Cart(**obj)
         cart.save()
        # cart = Cart.objects.filter(user_id=request.user.id)
-
-        return JsonResponse({'numberOfItems': Cart.objects.filter(user_id=request.user.id).count()})
+        cart = Cart.objects.filter(user_id=request.user.id)
+        summa = sum(items.quantity for items in cart)
+        #Cart.objects.filter(user_id=request.user.id).count()
+        return JsonResponse({'numberOfItems': '(' + str(summa) +')'})
     elif request.user.is_authenticated == False:
         return HttpResponse(status=404)
     return None
