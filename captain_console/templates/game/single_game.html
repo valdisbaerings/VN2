@@ -12,7 +12,15 @@
                     {{ product.name }}
 
                 </a></h6>
-                <div class="tabRight">
+                <div>
+                    {% if product.on_sale == True %}
+                        <p>20% off now</p>
+                    {% else %}
+                        <br>
+                    {% endif %}
+                </div>
+
+                <div>
                     <h3 class="mb-0 font-weight-semibold">${{ product.price }}</h3>
                     <button type="button" class="btn bg-cart" onclick="addToCart({{ product.id }});"><i class="fa fa-cart-plus mr-2"></i> Add to cart
                     </button>
