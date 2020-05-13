@@ -1,8 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% for search in searchhistory %}
-        <div class="well product">
-            <h4>{{ search.name }}</h4>
+    <div id="search-list">
+        {% for search in searchhistory %}
+            <div class="well product">
+                <button class="btn btn-link" onclick="search('{{ search.name }}')"
+                > {{ search.name }} </button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="prod">
+        <h3>Search history</h3>
+
+        <div class="products">
+            {% for product in products %}
+                {% if product.type_id == 1 %}
+                    {% include 'game/single_game.html' with product=product %}
+                {% else %}
+                    {% include 'console/single_console.html' with product=product %}
+                {% endif %}
+            {% endfor %}
         </div>
-    {% endfor %}
+    <p></p>
+                <button class="btn btn-outline-dark" type="button" onclick="back_to_search_history()">Back to search history</button>
+
+    </div>
+
+
+
+
 {% endblock %}

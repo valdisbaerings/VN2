@@ -1,5 +1,9 @@
 /* Navigation bar*/
 
+#prod {
+    display: none;
+}
+
 .orders {
     display: flex;
     flex-wrap: wrap;

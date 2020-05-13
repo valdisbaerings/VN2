@@ -1,6 +1,12 @@
 $(document).ready(function () {
     $('#search-history-btn').on('click', function (e) {
 
+    x = document.getElementById("prod");
+    if (x != null) {
+
+        x.style.display = "block"
+    }
+
         e.preventDefault();
         $.ajax({
             url: '/products/search_history',
@@ -12,7 +18,7 @@ $(document).ready(function () {
                             <h4>${d.name}</h4>
                     </div>`
                 });
-               // $('.products').html(newHtml.join(''));
+                // $('.products').html(newHtml.join(''));
                 //$('#search-box').val('');
 
             },
