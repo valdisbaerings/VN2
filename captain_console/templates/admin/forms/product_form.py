@@ -54,12 +54,12 @@ class GameCreateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Product
-        exclude = ['id']
+        exclude = ['id', 'manufacturer', 'type']
         widgets = {'name': widgets.TextInput(attrs={'class': 'form-control'}),
                    'type': widgets.Select(attrs={'class': 'form-control'}),
                    'description': widgets.TextInput(attrs={'class': 'form-control'}),
                    'developer': widgets.TextInput(attrs={'class': 'form-control'}),
-                   'manufacturer': widgets.Select(attrs={'class': 'form-control'}),
+                   #'manufacturer': widgets.Select(attrs={'class': 'form-control'}),
                    # 'release_year': widgets.Select(choices=RELEASE_YEAR_CHOICES),
                    'price': widgets.NumberInput(attrs={'class': 'form-control'}),
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})

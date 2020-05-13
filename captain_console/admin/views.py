@@ -85,7 +85,6 @@ def delete_product(request):
 def create_game(request):
     if request.method == "POST":
         form = GameCreateForm(data=request.POST)
-
         if form.is_valid():
             product = form.save()
             product_image = ProductImage(image=request.POST['image'], product=product)

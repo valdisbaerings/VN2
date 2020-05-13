@@ -5,6 +5,7 @@ from django.forms import ModelForm, widgets
 from django.shortcuts import render, get_object_or_404
 
 from manufacturer.models import Manufacturer
+from django.contrib.auth.models import User
 
 
 class Console(models.Model):
@@ -26,6 +27,7 @@ class GameGenre(models.Model):
 
 class Type(models.Model):
     name = models.CharField(max_length=255)
+
     def __str__(self):
         return self.name
 
@@ -40,7 +42,7 @@ class Product(models.Model):
     release_year = models.FloatField()
     console = models.ForeignKey(Console, on_delete=models.CASCADE)
     genre = models.ForeignKey(GameGenre, on_delete=models.CASCADE)
-    on_sale=models.BooleanField()
+    on_sale = models.BooleanField()
 
     def __str__(self):
         return self.name
@@ -55,4 +57,5 @@ class ProductImage(models.Model):
 
 
 class SearchHistory(models.Model):
-    name=models.CharField(max_length=999)
+    name = models.CharField(max_length=999)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")

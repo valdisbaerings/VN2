@@ -15,6 +15,7 @@ class ConsoleCreateForm(ModelForm):
                    'description': widgets.TextInput(attrs={'class': 'form-control'}),
                    'manufacturer': widgets.Select(attrs={'class': 'form-control'}),
                    'price': widgets.NumberInput(attrs={'class': 'form-control'}),
+
                    }
 
 
