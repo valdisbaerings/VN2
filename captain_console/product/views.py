@@ -33,7 +33,7 @@ def product_index(request):
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
-        print(search_filter)
+        print(products)
         return JsonResponse({'data': products})
 
     if 'product_filter' in request.GET:
