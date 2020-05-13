@@ -12,8 +12,10 @@ for year in range(current_year - 1900):
     my_year = 1900 + year
     RELEASE_YEAR_CHOICES.append(my_year)
 
+
 class ConsoleUpdateForm(ModelForm):
-    image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
         exclude = ['id', 'developer', 'release_year', 'console', 'genre', 'type']
@@ -24,24 +26,27 @@ class ConsoleUpdateForm(ModelForm):
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})
                    }
 
+
 class GameUpdateForm(ModelForm):
-    image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
-        exclude = ['id', 'manufacturer','type']
+        exclude = ['id', 'manufacturer', 'type']
         widgets = {'name': widgets.TextInput(attrs={'class': 'form-control'}),
                    'description': widgets.TextInput(attrs={'class': 'form-control'}),
                    'developer': widgets.TextInput(attrs={'class': 'form-control'}),
-                   #'release_year': widgets.Select(choices=RELEASE_YEAR_CHOICES),
+                   # 'release_year': widgets.Select(choices=RELEASE_YEAR_CHOICES),
                    'price': widgets.NumberInput(attrs={'class': 'form-control'}),
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})
                    }
 
+
 class ConsoleCreateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
-        #Product.developer = 'N/A'
         exclude = ['id', 'developer', 'release_year', 'console', 'genre', 'type']
         widgets = {'name': widgets.TextInput(attrs={'class': 'form-control'}),
                    'description': widgets.TextInput(attrs={'class': 'form-control', 'size': '40'}),
@@ -50,8 +55,10 @@ class ConsoleCreateForm(ModelForm):
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})
                    }
 
+
 class GameCreateForm(ModelForm):
     image = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
         exclude = ['id', 'manufacturer', 'type']
@@ -59,7 +66,7 @@ class GameCreateForm(ModelForm):
                    'type': widgets.Select(attrs={'class': 'form-control'}),
                    'description': widgets.TextInput(attrs={'class': 'form-control'}),
                    'developer': widgets.TextInput(attrs={'class': 'form-control'}),
-                   #'manufacturer': widgets.Select(attrs={'class': 'form-control'}),
+                   'manufacturer': widgets.Select(attrs={'class': 'form-control'}),
                    # 'release_year': widgets.Select(choices=RELEASE_YEAR_CHOICES),
                    'price': widgets.NumberInput(attrs={'class': 'form-control'}),
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})
