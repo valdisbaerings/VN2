@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Review over your order</h3>
+    <div id="cart"> <h1>Review over your order</h1>
+    </div><br>
+
 
     <div class="col-sm-8 col-sm-offset-3">
-        <h4>Items</h4>
+        <h3>Items</h3>
         <table class="table">
             <thead>
             <th>Item</th>
@@ -16,7 +18,7 @@
         <tr>
             <td></td>
             <td></td>
-            <td>Total: {{ totalPrice }}</td>
+            <td><b>Total: {{ totalPrice }}</b></td>
         </tr>
         </tfoot>
                 {% for item in items %}
@@ -25,39 +27,41 @@
         </table>
 
         <div>
-            <h4>Buyer information</h4>
-            <div>
-                Name: {{ order.fullname }} <br>
-                Street name: {{ order.streetname }}<br>
-                House number: {{ order.housenumber }}<br>
-                City: {{ order.city }}<br>
-                Country: {{ order.country }}<br>
-                Postal code: {{ order.postalcode }}<br>
-            </div>
-
-
-        </div>
-
-        <div>
-            <h4>Payment informations</h4>
-            <div>
-                Name of cardholder: {{ payment.cardno }}<br>
-                Card Number: {{ payment.cardno }}<br>
-                Expiration date: {{ payment.expdate }}<br>
-
+            <h3>Buyer information</h3>
+            <div class="tab">
+                <b>Name:  </b>{{ order.fullname }} <br>
+                <b>Street name: </b> {{ order.streetname }}<br>
+                <b>House number: </b>{{ order.housenumber }}<br>
+                <b>City: </b>{{ order.city }}<br>
+                <b>Country: </b>{{ order.country }}<br>
+                <b>Postal code: </b> {{ order.postalcode }}<br>
             </div>
 
         </div>
+        <br><br>
 
-    <form method="post" id="review_form">
+            <div>
+                <h3>Payment informations</h3>
+                <div class="tab">
+                    <b>Name of cardholder:</b>  {{ payment.cardno }}<br>
+                    <b>Card Number: </b>{{ payment.cardno }}<br>
+                    <b>Expiration date:</b> {{ payment.expdate }}<br>
+                </div>
 
-    </form>
+            </div>
+
+        <form method="post" id="review_form">
+
+        </form>
+    </div>
+    <br><br>
 
 
+    <div class="col-sm-8 col-sm-offset-3">
+        <br>
         <button type="button" class="btn bg-cart" onclick="history.back()"></i> Back</button>
         <button type="submit" form="review_form" class="btn bg-cart" value="submit"> <i class="fa fa-cart-plus mr-2"></i> Finish your order</button>
-
+        <br><br>
     </div>
-
 
 {% endblock %}

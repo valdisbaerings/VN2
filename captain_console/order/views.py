@@ -148,7 +148,7 @@ def confirmation(request):
     context = {}
     template = "order/confirmation.html"
     items = Cart.objects.filter(user_id=request.user.id)
-    request.session["order_id"] = -1
+    #request.session["order_id"] = -1
     return render(request, template, context)
 
 
