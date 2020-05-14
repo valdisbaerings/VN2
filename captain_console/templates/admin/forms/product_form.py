@@ -4,7 +4,7 @@ from django import forms
 from django.db import models
 from django.forms import ModelForm, widgets
 
-from product.models import Product
+from product.models import Product, Console
 
 RELEASE_YEAR_CHOICES = []
 current_year = int(datetime.now().year)
@@ -79,3 +79,13 @@ class GameCreateForm(ModelForm):
                    'price': widgets.NumberInput(attrs={'class': 'form-control'}),
                    'on_sale': widgets.CheckboxInput(attrs={'class': 'checkbox'})
                    }
+
+
+class ConsoleForm(ModelForm):
+
+    class Meta:
+        model = Console
+        exclude = ['id']
+        widgets = {
+            'name': widgets.TextInput(attrs={'class': 'form-control'}),
+        }

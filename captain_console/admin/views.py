@@ -4,10 +4,9 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from product.models import Product, ProductImage
+from product.models import Product, ProductImage, Console
 from templates.admin.forms.login_form import AdminAuthenticationForm
-from templates.admin.forms.product_form import GameUpdateForm, ConsoleUpdateForm, GameCreateForm
-
+from templates.admin.forms.product_form import GameUpdateForm, ConsoleUpdateForm, GameCreateForm, ConsoleForm
 
 user_login_required = user_passes_test(lambda user: user.is_superuser, login_url='/admin')
 def superuser_required(view_func):
@@ -15,8 +14,6 @@ def superuser_required(view_func):
     return decorated_view_func
 
 # Create your views here.
-
-
 
 def admin_login(request):
     if request.method == 'POST':
@@ -82,6 +79,8 @@ def delete_product(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         c = json.loads(request.body.decode('utf-8'))
         pid = c["product_id"]
+        product = Product.objects.get(id=pid)
+        Console.objects.get(name=product.name).delete()
         Product.objects.get(id=pid).delete()
     return JsonResponse({})
 
@@ -92,9 +91,13 @@ def create_product(request):
         print(form['manufacturer'])
         if form.is_valid():
             product = form.save()
+            if product.type_id == 2:
+                console = Console()
+                console.name = product.name
+                console.save()
             product_image = ProductImage(image=request.POST['image'], product=product)
             product_image.save()
-            return redirect('list_products/'+product.type_id)
+            return redirect('list_products', product.type_id)
     else:
         form = GameCreateForm()
     return render(request, 'admin/create_product.html', {
