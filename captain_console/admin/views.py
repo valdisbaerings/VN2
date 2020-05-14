@@ -66,7 +66,8 @@ def delete_product(request):
         c = json.loads(request.body.decode('utf-8'))
         pid = c["product_id"]
         product = Product.objects.get(id=pid)
-        Console.objects.get(name=product.name).delete()
+        if product.type_id == 2:
+            Console.objects.get(name=product.name).delete()
         Product.objects.get(id=pid).delete()
     return JsonResponse({})
 

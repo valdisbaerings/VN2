@@ -38,6 +38,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <li><a href="{% url 'list_products' 1 %}">Games</a></li>
+                <li><a href="{% url 'list_products' 2 %}">Consoles</a></li>
                 <li><a href="{% url 'admin_logout' %}">Logout</a></li>
             </ul>
 

@@ -13,7 +13,6 @@ const deleteProduct = (id) => {
             console.error(error)
         }
     });
-    console.log('deleted')
 }
 
 const deleteImage = (id) => {
