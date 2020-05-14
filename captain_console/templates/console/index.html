@@ -35,7 +35,7 @@
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     {% for manu in manufacturers %}
-                        {% if manu.name != 'N/A' %}
+                        {% if manu.name != 'NA' %}
                             <button class="dropdown-item" type="button" onclick="filter_function({{ manu.id }}, '/consoles')">{{ manu }}</button>
                         {% endif %}
                     {% endfor %}
