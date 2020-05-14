@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from product.models import Product, ProductImage, Console
 from templates.admin.forms.login_form import AdminAuthenticationForm
-from templates.admin.forms.product_form import GameUpdateForm, ConsoleUpdateForm, GameCreateForm, ConsoleForm
+from templates.admin.forms.product_form import ProductUpdateForm, ProductCreateForm
 
 user_login_required = user_passes_test(lambda user: user.is_superuser, login_url='/admin')
 def superuser_required(view_func):
@@ -39,7 +39,7 @@ def admin_home(request):
 def list_products(request, type_id):
     products = Product.objects.filter(type_id=type_id)
     return render(request, 'admin/products.html', {
-        'products': products,
+        'products': products.order_by('name'),
         'type_id': type_id
     })
 
@@ -47,28 +47,14 @@ def list_products(request, type_id):
 def edit_product(request, id):
     instance = get_object_or_404(Product, pk=id)
     if request.method == 'POST':
-        if instance.type_id == 1: # games
-            form = GameUpdateForm(data=request.POST, instance=instance)
-            if form.is_valid():
-                product = form.save()
-                product_image = ProductImage(image=request.POST['image'], product=product)
-                if product_image.image is not '':
-                    product_image.save()
-
-                #return redirect('admin_home')
-        elif instance.type_id == 2:
-            form = ConsoleUpdateForm(data=request.POST, instance=instance)
-            if form.is_valid():
-                product = form.save()
-                product_image = ProductImage(image=request.POST['image'], product=product)
-                if product_image.image is not '':
-                    product_image.save()
-                #return redirect('admin_home')
+        form = ProductUpdateForm(data=request.POST, instance=instance)
+        if form.is_valid():
+            product = form.save()
+            product_image = ProductImage(image=request.POST['image'], product=product)
+            if product_image.image is not '':
+                product_image.save()
     else:
-        if instance.type_id == 1:  # games
-            form = GameUpdateForm(instance=instance)
-        elif instance.type_id == 2:
-            form = ConsoleUpdateForm(instance=instance)
+        form = ProductUpdateForm(instance=instance)
     return render(request, 'admin/edit_product.html', {
         'form': form,
         'id': id
@@ -87,14 +73,14 @@ def delete_product(request):
 @superuser_required
 def create_game(request):
     if request.method == "POST":
-        form = GameCreateForm(data=request.POST)
+        form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             product = form.save()
             product_image = ProductImage(image=request.POST['image'], product=product)
             product_image.save()
             return redirect('products/'+str(product.type_id))
     else:
-        form = GameCreateForm()
+        form = ProductCreateForm()
     return render(request, 'admin/create_game.html', {
         'form': form
     })
@@ -102,7 +88,7 @@ def create_game(request):
 @superuser_required
 def create_console(request):
     if request.method == "POST":
-        form = ConsoleCreateForm(data=request.POST)
+        form = ProductCreateForm(data=request.POST)
         print(form['manufacturer'])
         if form.is_valid():
             product = form.save()
@@ -110,7 +96,7 @@ def create_console(request):
             product_image.save()
             return redirect('products/'+str(product.type_id))
     else:
-        form = ConsoleCreateForm()
+        form = ProductCreateForm()
     return render(request, 'admin/create_console.html', {
         'form': form
     })

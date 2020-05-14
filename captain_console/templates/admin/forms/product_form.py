@@ -42,24 +42,44 @@ class GameUpdateForm(ModelForm):
                    }
 
 
-class ConsoleCreateForm(ModelForm):
-    image = forms.CharField(required=True,
-                            widget=forms.TextInput(attrs={'class': 'form-control'}))
-    name = forms.CharField(required=True,
-                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+class ProductUpdateForm(ModelForm):
+    image = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    manufacturer = forms.CharField(help_text='[Type: NA]', widget=forms.TextInput(attrs={'class': 'form-control'}))
     price = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    on_sale = forms.CharField(widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
-    developer = forms.CharField(help_text='[Type: NA]', widget=forms.Select(attrs={'class': 'form-control'}))
+    on_sale = forms.CharField(required=False,widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+    developer = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     release_year = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
         exclude = ['id']
         widgets = {
             'console': widgets.Select(attrs={'class': 'form-control'}),
             'genre': widgets.Select(attrs={'class': 'form-control'}),
-            'type': widgets.Select(attrs={'class': 'form-control'})
+            'type': widgets.Select(attrs={'class': 'form-control'}),
+            'manufacturer': widgets.Select(attrs={'class': 'form-control'})
+        }
+
+class ProductCreateForm(ModelForm):
+    image = forms.CharField(required=True,
+                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(required=True,
+                           widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    price = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    on_sale = forms.CharField(required=False,widget=forms.CheckboxInput(attrs={'class': 'form-control'}))
+    developer = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    release_year = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Product
+        exclude = ['id']
+        widgets = {
+            'console': widgets.Select(attrs={'class': 'form-control'}),
+            'genre': widgets.Select(attrs={'class': 'form-control'}),
+            'type': widgets.Select(attrs={'class': 'form-control'}),
+            'manufacturer': widgets.Select(attrs={'class': 'form-control'})
         }
 
     # Product.developer = 'N/A'

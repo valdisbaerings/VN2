@@ -1,6 +1,8 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
 <h1>CREATE NEW GAME</h1>
+    <p>Please type or choose "NA" for these fields:</p>
+    <p>Manufacturer</p>
     <form class="form form-horizontal" action="{% url 'create_game' %}" method="post">
         {% csrf_token %}
         {{ form }}
