@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -91,8 +91,6 @@ def search_index(request):
         form = SearchHistory(name=request.POST['text'],user_id=request.user.id)
         form.save()
         return HttpResponse({'name': form})
-    elif request.method == 'POST':
-        return None
 
 
 
@@ -104,7 +102,7 @@ def view_search_index(request):
             'searchhistory': search
         })
     elif request.user.is_authenticated==False:
-        return HttpResponse(status=404)
+        return redirect()
 
 
 def game_index(request):
