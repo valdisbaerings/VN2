@@ -85,24 +85,36 @@ def delete_product(request):
     return JsonResponse({})
 
 @superuser_required
-def create_product(request):
+def create_game(request):
     if request.method == "POST":
         form = GameCreateForm(data=request.POST)
+        if form.is_valid():
+            product = form.save()
+            product_image = ProductImage(image=request.POST['image'], product=product)
+            product_image.save()
+            return redirect('products/'+str(product.type_id))
+    else:
+        form = GameCreateForm()
+    return render(request, 'admin/create_game.html', {
+        'form': form
+    })
+
+@superuser_required
+def create_console(request):
+    if request.method == "POST":
+        form = ConsoleCreateForm(data=request.POST)
         print(form['manufacturer'])
         if form.is_valid():
             product = form.save()
-            if product.type_id == 2:
-                console = Console()
-                console.name = product.name
-                console.save()
             product_image = ProductImage(image=request.POST['image'], product=product)
             product_image.save()
-            return redirect('list_products', product.type_id)
+            return redirect('products/'+str(product.type_id))
     else:
-        form = GameCreateForm()
-    return render(request, 'admin/create_product.html', {
+        form = ConsoleCreateForm()
+    return render(request, 'admin/create_console.html', {
         'form': form
     })
+
 
 @superuser_required
 def single_product(request, id):

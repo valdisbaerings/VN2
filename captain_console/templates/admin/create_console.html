@@ -1,7 +1,7 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-<h1>CREATE NEW PRODUCT</h1>
-    <form class="form form-horizontal" action="{% url 'create_product' %}" method="post">
+<h1>CREATE NEW CONSOLE</h1>
+    <form class="form form-horizontal" action="{% url 'create_console' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Create" class="btn btn-primary pull-right" style="clear: both; margin: 10px 0" />

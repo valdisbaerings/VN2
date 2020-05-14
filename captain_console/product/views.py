@@ -236,7 +236,7 @@ def create_console(request):
             return redirect('console-index')
     else:
         form = ConsoleCreateForm()
-        return render(request, 'console/create_console.html', {
+        return render(request, 'console/create_console_gamalt.html', {
             'form': form
         })
 
