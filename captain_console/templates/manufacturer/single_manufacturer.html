@@ -1,5 +1,7 @@
 <div class="manufacturer">
-    <a class="manu" href="/manufacturers/{{ manufacturer.id }}">
-        <h3>{{ manufacturer.name }}</h3>
-    </a>
+    {% if manufacturer.name != 'NA' %}
+        <a class="manu" href="/manufacturers/{{ manufacturer.id }}">
+            <h3>{{ manufacturer.name }}</h3>
+        </a>
+    {% endif %}
 </div>
