@@ -82,9 +82,10 @@ def delete_product(request):
     return JsonResponse({})
 
 @superuser_required
-def create_game(request):
+def create_product(request):
     if request.method == "POST":
         form = GameCreateForm(data=request.POST)
+        print(form['manufacturer'])
         if form.is_valid():
             product = form.save()
             product_image = ProductImage(image=request.POST['image'], product=product)
@@ -92,7 +93,7 @@ def create_game(request):
             return redirect('admin_home')
     else:
         form = GameCreateForm()
-    return render(request, 'admin/create_game.html', {
+    return render(request, 'admin/create_product.html', {
         'form': form
     })
 

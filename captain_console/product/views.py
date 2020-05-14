@@ -228,6 +228,7 @@ def get_game_by_id(request, id):
 def create_console(request):
     if request.method == 'POST':
         form = ConsoleCreateForm(data=request.POST)
+        print(form.manufacturer)
         if form.is_valid():
             console = form.save()
             console_image = ProductImage(image=request.POST['image'], console=console)
