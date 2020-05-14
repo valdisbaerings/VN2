@@ -39,7 +39,7 @@ class Product(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     developer = models.CharField(max_length=255, blank=True)
-    release_year = models.FloatField()
+    release_year = models.DecimalField(decimal_places=0, max_digits=4)
     console = models.ForeignKey(Console, on_delete=models.CASCADE)
     genre = models.ForeignKey(GameGenre, on_delete=models.CASCADE)
     on_sale = models.BooleanField()
@@ -49,7 +49,7 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    image = models.CharField(max_length=999)
+    image = models.CharField(max_length=999, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
