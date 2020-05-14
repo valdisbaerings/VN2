@@ -31,3 +31,16 @@ const deleteImage = (id) => {
         }
     });
 }
+
+const back_function = (id) => {
+    $.ajax({
+        success: function () {
+            window.history.back()
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error(error)
+        }
+    });
+}
+

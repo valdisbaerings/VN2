@@ -40,6 +40,8 @@
     font-weight: bold;
 }
 
+
+/* Takkar og input fields í formum */
 form {
     padding-top: 20px;
     padding-left: 5px;
@@ -80,6 +82,8 @@ form {
     padding-bottom: 50px;
 }
 
+/* Filter, sorter og search bar */
+
 .sorter {
     padding-left: 2px;
 }
@@ -116,7 +120,8 @@ form {
 
 .tabRight { margin-right: 50px; }
 
-/*Sýna allt console/games/all products */
+/*Sýna allt consoles/games/all products */
+
 p {
     font-size: 14px;
 }

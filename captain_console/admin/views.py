@@ -50,19 +50,23 @@ def list_products(request, type_id):
 def edit_product(request, id):
     instance = get_object_or_404(Product, pk=id)
     if request.method == 'POST':
-        if instance.type_id == 1: #games
+        if instance.type_id == 1: # games
             form = GameUpdateForm(data=request.POST, instance=instance)
             if form.is_valid():
                 product = form.save()
                 product_image = ProductImage(image=request.POST['image'], product=product)
-                product_image.save()
+                if product_image.image is not '':
+                    product_image.save()
 
-                return redirect('admin_home')
+                #return redirect('admin_home')
         elif instance.type_id == 2:
             form = ConsoleUpdateForm(data=request.POST, instance=instance)
             if form.is_valid():
-                form.save()
-                return redirect('admin_home', id=id)
+                product = form.save()
+                product_image = ProductImage(image=request.POST['image'], product=product)
+                if product_image.image is not '':
+                    product_image.save()
+                #return redirect('admin_home')
     else:
         if instance.type_id == 1:  # games
             form = GameUpdateForm(instance=instance)
@@ -90,7 +94,7 @@ def create_product(request):
             product = form.save()
             product_image = ProductImage(image=request.POST['image'], product=product)
             product_image.save()
-            return redirect('admin_home')
+            return redirect('list_products/'+product.type_id)
     else:
         form = GameCreateForm()
     return render(request, 'admin/create_product.html', {
