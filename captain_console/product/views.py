@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -20,7 +20,6 @@ def sale_index(request):
 
 
 def product_index(request):
-    print("HIII")
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         products = [{
@@ -33,7 +32,6 @@ def product_index(request):
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
-        print(products)
         return JsonResponse({'data': products})
 
     if 'product_filter' in request.GET:
@@ -88,11 +86,13 @@ def product_index_type(request, type):
 
 
 def search_index(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         print(request)
         form = SearchHistory(name=request.POST['text'],user_id=request.user.id)
         form.save()
         return HttpResponse({'name': form})
+    elif request.method == 'POST':
+        return None
 
 
 
@@ -103,6 +103,8 @@ def view_search_index(request):
         return render(request, 'product/view_search_history.html', {
             'searchhistory': search
         })
+    elif request.user.is_authenticated==False:
+        return HttpResponse(status=404)
 
 
 def game_index(request):

@@ -23,7 +23,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                // TODO: Show toastr
+                alert('You are not logged in. Please log in to see your search history!')
                 console.error(error)
             }
         });

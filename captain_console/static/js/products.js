@@ -55,7 +55,6 @@ function search(searchText) {
 
         },
         error: function (xhr, status, error) {
-            // TODO: Show toastr
             console.error(error)
         }
     });

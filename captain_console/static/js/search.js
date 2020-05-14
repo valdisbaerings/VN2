@@ -19,7 +19,6 @@ $(document).ready(function () {
                 return data
             } ,
             error: function (xhr, status, error) {
-                // TODO: Show toastr
                 console.error(error)
             }
         });
