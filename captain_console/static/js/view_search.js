@@ -1,18 +1,12 @@
 $(document).ready(function () {
     $('#search-history-btn').on('click', function (e) {
 
-    x = document.getElementById("prod");
-    if (x != null) {
-
-        x.style.display = "block"
-    }
-
         e.preventDefault();
+
         $.ajax({
-            url: '/products/search_history',
+            url: '/products/view_search_history',
             type: 'GET',
             success: function (resp) {
-
                 var newHtml = resp.data.map(d => {
                     return `<div class="well products">
                             <h4>${d.name}</h4>
@@ -23,7 +17,8 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                // TODO: Show toastr
+                alert('You are not logged in. Please log in to see your search history!')
+
                 console.error(error)
             }
         });

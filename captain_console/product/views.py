@@ -20,7 +20,6 @@ def sale_index(request):
 
 
 def product_index(request):
-    print("HIII")
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
         products = [{
@@ -33,7 +32,6 @@ def product_index(request):
         }
 
             for x in Product.objects.filter(name__icontains=search_filter)]
-        print(products)
         return JsonResponse({'data': products})
 
     if 'product_filter' in request.GET:
@@ -88,7 +86,7 @@ def product_index_type(request, type):
 
 
 def search_index(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         print(request)
         form = SearchHistory(name=request.POST['text'],user_id=request.user.id)
         form.save()
@@ -103,6 +101,8 @@ def view_search_index(request):
         return render(request, 'product/view_search_history.html', {
             'searchhistory': search
         })
+    elif request.user.is_authenticated==False:
+        return redirect()
 
 
 def game_index(request):
