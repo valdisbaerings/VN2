@@ -35,7 +35,7 @@ def view(request):
         template = "cart/index.html"
     return render(request, template, context)
 
-@login_required
+
 def add_to_cart(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         p = json.loads(request.body.decode('utf-8'))

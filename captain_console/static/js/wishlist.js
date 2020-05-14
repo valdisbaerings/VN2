@@ -11,7 +11,6 @@ const addToWishlist = (id) => {
         error: function (xhr, status, error) {
             // TODO: Show toastr
             alert("You are not logged in. Please log in before adding to your wishlist.")
-
             console.error(error)
         }
     });

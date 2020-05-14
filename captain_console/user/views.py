@@ -74,7 +74,7 @@ def view_wishlist(request):
         template = "user/wishlist-index.html"
     return render(request, template, context)
 
-@login_required
+
 def add_to_wishlist(request):
     if request.is_ajax() and request.method == "POST" and request.user.is_authenticated:
         p = json.loads(request.body.decode('utf-8'))
@@ -86,7 +86,10 @@ def add_to_wishlist(request):
         print(wishlist)
         wishlist.save()
         return JsonResponse({'numberOfItems': Wishlist.objects.filter(user_id=request.user.id).count()})
+    elif request.user.is_authenticated == False:
+        return HttpResponse(status=404)
     return None
+
 
 @login_required
 def del_from_wishlist(request):
